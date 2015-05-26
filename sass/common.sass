@@ -12,7 +12,7 @@
 .button
   +border-radius(3px)
   font-size: 1em
-  +skin-bgfg(#ec6941, #fff)
+  +skin-bgfg($main_orange, #fff)
   text-align: center
   border: 0
   display: inline-block
@@ -35,6 +35,16 @@
 .button_small
   @extend .button
   padding: 3px 7px 3px 5px
+.button_mid
+  @extend .button
+  padding: 5px 7px
+.button_lg
+  @extend .button
+  padding: 10px
+  width: 300px
+  margin-left: 20px
+  font-size: 1.2em
+  +border-radius(8px)
 
 // 文本输入框
 .input
@@ -55,6 +65,8 @@
   +link(#4e6e9f, #4e6e9f)
 .link_gray_light
   +link(#a1a6b7, #a1a6b7)
+.link_purple
+  +link(#8b4dad, #8b4dad)
 
 // 背景图标定位
 %background-image
@@ -92,11 +104,17 @@
   li
     display: inline-block
 
+// 底部白色线
+.bb_white
+  border-bottom: 1px solid #fff
+.br_gray
+  border-right: 1px solid #c9c9c9
+.bb_gray
+  border-bottom: 1px solid #c9c9c9
 
 // =========================================
 // ============= 页面版块 ===================
 // =========================================
-
 
 // 顶部导航
 .top_nav
@@ -113,8 +131,11 @@
 
 // 导航
 .nav
-  background: url('../images/nav-bg.png') repeat-x
+  background: #240f0a url('../images/nav-bg.png') repeat-x 
   height: 100px
+.nav_circle
+  @extend .nav
+  background-color: #210a24
 .nav_logo
   margin: 0 120px 0 20px
 .nav_list 
@@ -157,6 +178,20 @@
   color: #a1a6b7
   font-size: 12px
 
+// 分页
+.pagination
+  text-align: center
+  margin: 50px 0
+  .page
+    padding: 5px 10px
+    &:hover
+      +skin-bgfg($main_orange, #fff)
+  .input
+    border: 1px solid #ccc
+    width: 40px
+    +line-height(25px)
+  .current
+    +skin-bgfg($main_orange, #fff)
 
 
 // =========================================
@@ -167,6 +202,8 @@
 .center
   margin: 0 auto
   width: 1260px
+.position_center
+  +position-center(1260px)
 
 // 标题
 .title
@@ -177,6 +214,88 @@
   font-size: 12px
   color: #878787
 
+// 左右布局
+.layout_left
+  width: 900px
+  float: left
+.layout_right
+  float: left
+  width: 350px
+
+%background_tip
+  +skin-bgfg(rgba(0,0,0,.7), #fff)
+  font-size: 10px
+  padding: 3px 10px
+// 首页热门精选图片提示
+.seleced_img_tip
+  @extend %background_tip
+  +position(absolute, bottom, 0, left, 0)
+  width: 160px
+// 圈子广场图片提示
+.square_img_tip
+  @extend %background_tip
+  +position(absolute, top, 0, left, 0)
+  width: 100px
+  text-align: right
+
+// 性别卡片图标
+.icon-venus
+  +skin-bgfg(#f19ec2, #fff)
+  padding: 3px 6px
+.icon-mars 
+  +skin-bgfg(#00b7ee, #fff)
+  padding: 3px 6px
+
+// 用户信息右部分
+.user
+  background: $main_bg
+  height: 120px
+// 头像
+%user_portrait
+  +size(75px)
+  +border-radius(40px)
+  overflow: hidden
+  border: 3px solid #fff
+  +box-shadow(2px 2px 2px #aaa)
+  cursor: pointer
+.user_portrait_center
+  @extend %user_portrait
+  margin: 0 auto
+.user_portrait
+  @extend %user_portrait
+  margin: 15px 0 0 20px
+  z-index: 2
+  position: relative
+
+// 头像名片
+.user_portrait_card
+  +position(absolute, left, -315px, top, -105px)
+  background: #fff
+  +size(380px, 200px)
+  +box-shadow(0px 0px 10px #aaa)
+  z-index: 1
+  .title
+    +line-height(25px)
+    font-size: 16px
+    padding-bottom: 5px
+  .content
+    padding: 15px 15px 0 15px
+    height: 82px
+  .infos
+    padding: 13px 10px
+    background: black
+
+// 图标菜单
+.icon-menu
+  +size(15px)
+  +border-radius(10px)
+  background: #a0a0a0
+  display: inline-block
+
+// 灰色文本小号
+.gray_small
+  color: #7d7d7d
+  font-size: .9em
 
 // =========================================
 // ============= 元件 ======================
@@ -213,11 +332,14 @@
 +size-icon(130, 90)
 +size-icon(180, 210)
 +size-icon(230, 80)
-+size-icon(80)
++size-icon(240, 180)
++size-icon(75)
++size-icon(120)
+
 
 // 背景色
 .bg_orange
-  background: #f6f2ef
+  background: $main_bg
 .bg_orange2
   @extend .bg_orange
   width: 100%

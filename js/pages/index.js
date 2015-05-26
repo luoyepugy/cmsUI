@@ -35,13 +35,6 @@ $(function() {
             form.submit();
         }
     });
-    
-    // 推荐关注的人
-    $('.jq-user').hover(function() {
-
-    }, function() {
-
-    });
 
     // 放映室鼠标悬停效果
     $('.jq-video-hover').hover(function() {
