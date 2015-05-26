@@ -1,0 +1,56 @@
+
+// 盒子阴影，参数依次为水平阴影位置（必填）、垂直阴影位置（必填）、模糊距离、阴影尺寸、阴影颜色、内部阴影/外部阴影
+//
+// 参数为（h-shadow v-shadow blur spread color inset）
+//
+
+=box-shadow($shadows...)
+  -webkit-box-shadow: $shadows
+  -moz-box-shadow:    $shadows
+  -o-box-shadow:      $shadows
+  box-shadow:         $shadows
+
+
+// 边框圆角
+//
+// 参数为（圆角值）
+// 建议使用px单位，若用%为单位，效果没有预期的好
+// 
+
+=border-radius($radius)
+  -webkit-border-radius: $radius
+  -moz-border-radius:    $radius
+  -o-border-radius:      $radius
+  border-radius:         $radius
+
+
+// 多列列数
+//
+// 参数为（列数）
+// 
+
+=column-count($number)
+  -webkit-column-count: $number
+  -moz-column-count:    $number
+  column-count:         $number
+
+// 多列间隔
+//
+// 参数为（间隔）
+// 
+
+=column-gap($distance)
+  -webkit-column-gap:   $distance
+  -moz-column-gap:      $distance
+  column-gap:           $distance
+
+
+// 多列规则
+//
+// 参数为（列之间的border样式，如3px outset #000）
+// 
+
+=column-rule($border)
+  -webkit-column-rule:  $border
+  -moz-column-rule:     $border
+  column-rule:          $border

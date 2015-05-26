@@ -1,0 +1,240 @@
+
+@import reset/default-reset
+@import reset/custom-reset
+@import mixin
+
+
+// =========================================
+// ============= 组件 ======================
+// =========================================
+
+// 按钮
+.button
+  +border-radius(3px)
+  font-size: 1em
+  +skin-bgfg(#ec6941, #fff)
+  text-align: center
+  border: 0
+  display: inline-block
+  padding: 3px 5px
+  cursor: pointer
+.button_code
+  @extend .button
+  +button-fixedwidth(90px, 29px, #959595)
+.button_signup
+  @extend .button
+  border: 1px solid #fff
+  +size(50px, 27px)
+  background: rgba(0,0,0,0)
+.button_signin
+  @extend .button
+  +size(50px, 27px)
+.button_gray
+  @extend .button
+  background: #ccc
+.button_small
+  @extend .button
+  padding: 3px 7px 3px 5px
+
+// 文本输入框
+.input
+  padding-left: 5px
+  font-size: 1em
+  background: #fff
+  +line-height(35px)
+  +border-radius(3px)
+  outline: 0
+  border: 0
+
+// 超链接
+.link_white
+  +link(#fff, #fff)
+.link_gray
+  +link(#333, #333)
+.link_blue
+  +link(#4e6e9f, #4e6e9f)
+.link_gray_light
+  +link(#a1a6b7, #a1a6b7)
+
+// 背景图标定位
+%background-image
+  +size(40px)
+  overflow: hidden
+  background-image: url("../images/icons.png")
+  display: inline-block
+.icon-smc
+  @extend %background-image
+  background-position: 0 0
+.icon-group
+  @extend %background-image
+  background-position: -40px 0
+.icon-coin
+  @extend %background-image
+  background-position: -80px 0
+.icon-remind
+  @extend %background-image
+  background-position: 0 40px
+.icon-hot
+  @extend %background-image
+  +size(40px, 25px)
+  background-position: -40px -40px
+.icon-female
+  @extend %background-image
+  background-position: -120px 0
+  +position-common(absolute)
+.icon-male
+  @extend %background-image
+  background-position: -160px 0
+  +position-common(absolute)
+
+// 块元素一行显示
+.inline_li
+  li
+    display: inline-block
+
+
+// =========================================
+// ============= 页面版块 ===================
+// =========================================
+
+
+// 顶部导航
+.top_nav
+  padding: 7px 0
+.top_nav *
+  display: inline-block
+  vertical-align: middle
+.top_nav_list
+  li
+    margin-right: 30px
+.top_nav_remind
+  margin: 9px 12px
+  color: #fff
+
+// 导航
+.nav
+  background: url('../images/nav-bg.png') repeat-x
+  height: 100px
+.nav_logo
+  margin: 0 120px 0 20px
+.nav_list 
+  font-size: 18px
+  li
+    margin-right: 20px
+    padding: 10px 20px
+.nav_search
+  margin-left: 120px
+  width: 320px
+.nav_search_input
+  +line-height(26px)
+  width: 290px
+  border: 0
+  outline: none
+.nav_search_hot
+  font-size: 12px
+  margin-top: 5px
+  dt,
+  dd
+    display: inline-block
+    margin-right: 5px
+  
+// 链接
+.links
+  padding: 50px 150px
+.links_list
+  width: 150px
+  display: inline-block
+  text-align: center
+  dd,
+  dt
+    +line-height(25px)
+
+// 版权
+.copyright
+  border-top: 1px solid #c9c9c9
+  padding: 30px 0
+  text-align: center
+  color: #a1a6b7
+  font-size: 12px
+
+
+
+// =========================================
+// ============= 模块 ======================
+// =========================================
+
+// 绝对居中
+.center
+  margin: 0 auto
+  width: 1260px
+
+// 标题
+.title
+  font-size: 20px
+  +line-height(45px)
+.title_more
+  float: right
+  font-size: 12px
+  color: #878787
+
+
+// =========================================
+// ============= 元件 ======================
+// =========================================
+
+// 表单验证
++form-validate-white
+
+// 字符限制
++elimit-width(8em)
+
+// margin
+.margin_auto
+  margin: 0 auto
+
+// 段落
+.p
+  line-height: 140%
+
+// 多行文本输入框
+.textarea
+  width: 94%
+  height: 100px
+
+// pv20
+.pv20
+  padding: 20px 0
+.mh10
+  margin: 0 10px
+
+// 尺寸
++size-icon(200, 120)
++size-icon(300, 150)
++size-icon(130, 90)
++size-icon(180, 210)
++size-icon(230, 80)
++size-icon(80)
+
+// 背景色
+.bg_orange
+  background: #f6f2ef
+.bg_orange2
+  @extend .bg_orange
+  width: 100%
+  float: left
+
+
+// 颜色
++color('gray_light', '#bbb')
++color('gray_mid', '#7d7d7d')
++color('orange', '#fd7400')
++color('red')
++color('white')
++color('blue', '#3b70c0')
++color('purple', '#8b4dad')
++color('green', '#52a6ab')
++color('black')
+
+// 导入其他元件
+@import base/default-base
+@import base/custom-base

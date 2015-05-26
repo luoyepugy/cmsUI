@@ -1,0 +1,164 @@
+
+@import ../mixin
+
+
+// banner/登录块
+.banner
+  background: url('../../images/banner-bg.jpg')
+  height: 200px
+  margin-top: 20px
+.banner_logo
+  width: 150px
+  margin: 35px 30px 0 50px
+.banner_remark
+  width: 280px
+  color: #fff
+  +position(relative, bottom, 30px, left, 0)
+  margin-right: 150px
+.banner_signin
+  border-left: 1px solid #fff
+  padding-left: 20px
+  font-size: 12px
+
+
+// 热门精选
+.layout_left
+  width: 900px
+  border-right: 1px solid #c9c9c9 
+  float: left
+  padding-top: 10px
+.layout_right
+  float: left
+  width: 350px
+  padding-top: 10px
+
+// 热门精选
+.selected
+  +display-inline(550px, 260px)
+  .inline_right
+    margin-left: 30px
+    vertical-align: top
+    li
+      margin-bottom: 20px
+.selected_img
+  +size(180px, 210px)
+  overflow: hidden
+  border-bottom: 2px solid #fff
+.seleced_img_tip
+  +position(absolute, bottom, 0, left, 0)
+  width: 160px
+  +skin-bgfg(rgba(0,0,0,.7), #fff)
+  font-size: 10px
+  padding: 3px 10px
+.selected_user
+  +size(140px, 170px)
+  overflow: hidden
+  background-image: url('../../images/card-bg.png')
+  color: #fff
+  text-align: right
+  padding: 20px
+
+// 热门精选内容块
+%card
+  +size(160px, 84px)
+  padding: 10px
+  font-size: 12px
+  border: 2px solid #fff
+  border-top: 0
+.card_yellow
+  background: #edece0
+  @extend %card
+.card_blue
+  background: #d7e6ee
+  @extend %card
+
+// 头像
+.user_portrait
+  +size(75px)
+  +border-radius(40px)
+  overflow: hidden
+  border: 3px solid #fff
+  +box-shadow(2px 2px 2px #aaa)
+
+// 底部白色线
+.bb_white
+  border-bottom: 1px solid #fff
+
+// 线上活动
+.online_list li
+  margin: 0 0 15px 25px
+
+// 左侧选项卡菜单
+.tab_menu
+  width: 160px
+  vertical-align: top
+  margin-right: 50px
+  li
+    +line-height(30px)
+    padding-left: 30px
+    &:hover
+      background: #cac7c5
+      cursor: pointer
+.tab_current
+  background: #cac7c5
+
+// 圈子
+.circles_content
+  width: 650px
+  li
+    margin: 0 80px 30px 0
+.circles_text
+  width: 230px
+  +line-height(80px)
+  text-align: center
+  color: #fff
+  font-size: 16px
+  +position-common(absolute)
+
+// 推荐关注的人
+.attention_content li
+  margin: 20px 0 30px 0
+  position: relative
+.user_infos
+  +position(relative, bottom, 20px, left, 20px)
+
+// 大神妙答
+.questions_content
+  padding: 45px 20px 20px 0
+  li
+    margin-bottom: 30px
+
+
+// 神图秀场
+.article_content
+  margin-left: 30px
+  width: 300px
+  +display-inline(150px, 130px)
+  li
+    margin-bottom: 20px
+
+// 放映室
+.video
+  padding-top: 10px
+.video_content
+  padding-bottom: 20px
+  li
+    width: 200px
+    text-align: center
+    margin-right: 20px
+    cursor: pointer
+.video_more
+  background: #637e7f
+  +size(120px)
+  line-height: 120px
+  text-align: center
+  vertical-align: top
+  color: #fff
+  font-size: 12px
+
+.video_hover
+  @extend .video_more
+  font-size: 50px
+  +size(200px, 120ppx)
+  background: rgba(0,0,0,.7)
+  +position-common(absolute)

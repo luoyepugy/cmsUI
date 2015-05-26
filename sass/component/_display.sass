@@ -1,0 +1,32 @@
+
+// display-inline
+// 块状元素显示为一行布局
+//
+// 参数为（左边宽度， 右边宽度）
+//
+
+=display-inline($left_width, $right_width)
+  .inline_left
+    width: $left_width
+    display: inline-block
+  .inline_right
+    width: $right_width
+    display: inline-block
+
+
+
+// display-inline-autowidth
+// 块状元素显示为一行布局，自动宽度
+//
+// 参数为（左边宽度， 右边宽度）
+//
+
+=display-inline-autowidth($left_width, $right_width)
+  .inline_left
+    display: inline-block
+    width: auto
+    max-width: $left_width
+  .inline_right
+    display: inline-block
+    width: auto
+    max-width: $right_width
