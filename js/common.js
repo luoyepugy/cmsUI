@@ -7,6 +7,11 @@ $(function() {
     }, function() {
         $(this).css('z-index', '1').next('div').addClass('none');
     });
+    $('.jq-card').hover(function() {
+        $(this).prev('div').css('z-index', '2').end().removeClass('none');
+    }, function() {
+        $(this).prev('div').css('z-index', '2').end().addClass('none');
+    });
 
     // 顶部导航交互
     $(document).scroll(function() {

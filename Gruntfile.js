@@ -14,7 +14,7 @@ module.exports = function(grunt) {
                     '../cms/html/css/pages/circle.min.css': 'sass/pages/circle.sass',
                     '../cms/html/css/pages/article.min.css': 'sass/pages/article.sass',
                     '../cms/html/css/pages/online.min.css': 'sass/pages/online.sass',
-                    '../cms/html/css/pages/video.min.css': 'sass/pages/video.sass'
+                    '../cms/html/css/pages/space.min.css': 'sass/pages/space.sass'
                 }
             }
         },

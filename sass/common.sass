@@ -46,6 +46,17 @@
   font-size: 1.2em
   +border-radius(8px)
 
+// 标签色块
+.tag_blue
+  @extend .button_mid
+  background: #00b7ee
+.tag_green
+  @extend .button_mid
+  background: #9dc02e
+.tag_pink
+  @extend .button_mid
+  background: #f19ec2
+
 // 文本输入框
 .input
   padding-left: 5px
@@ -99,6 +110,9 @@
   background-position: -80px 0
   &:hover
     background-position: -80px -40px
+.icon-coin2
+  @extend %background-image
+  background-position: -80px -40px
 .icon-remind
   @extend %background-image
   background-position: -120px 40px
@@ -133,8 +147,6 @@
 // 底部白色线
 .bb_white
   border-bottom: 1px solid #fff
-.br_gray
-  border-right: 1px solid #c9c9c9
 .bb_gray
   border-bottom: 1px solid #c9c9c9
 
@@ -181,7 +193,6 @@
   li
     margin-right: 20px
     padding: 10px 20px
-    color: #fff
 
 .nav_search
   margin: 15px 0 0 120px
@@ -250,15 +261,23 @@
 .title
   font-size: 20px
   +line-height(45px)
+.title_16
+  font-size: 16px
+  +line-height(35px)
 .title_more
   float: right
   font-size: 12px
   color: #878787
 
 // 左右布局
-.layout_left
+.layout_left_index
   width: 900px
   float: left
+  border-right: 1px solid #c9c9c9
+.layout_left
+  @extend .layout_left_index
+  padding-right: 20px
+  width: 880px
 .layout_right
   float: left
   width: 350px
@@ -341,6 +360,13 @@
   color: #7d7d7d
   font-size: .9em
 
+// 我加入的圈子板块
+.circle_join
+  margin-bottom: 20px
+  li
+    margin: 15px 9px 10px 0
+
+
 // =========================================
 // ============= 元件 ======================
 // =========================================
@@ -350,6 +376,8 @@
 
 // 字符限制
 +elimit-width(8em)
++elimit-width(15em)
++elimit-width(25em)
 
 // margin
 .margin_auto
@@ -372,6 +400,10 @@
 .mh50
   margin: 0 50px
 
+// 背景
+.bg_gray
+  background: #707070
+
 // 尺寸
 +size-icon(200, 120)
 +size-icon(300, 150)
@@ -380,8 +412,10 @@
 +size-icon(230, 80)
 +size-icon(240, 180)
 +size-icon(75)
++size-icon(70)
++size-icon(20)
 +size-icon(120)
-
++size-icon(180)
 
 // 背景色
 .bg_orange

@@ -8,12 +8,14 @@
 =link($original-color, $hover-color)
   color: $original-color
 
-  &:hover,
   &:visited
+    color: $original-color
+  &:hover
     color: $hover-color
 
   cursor: pointer
   @content
+
 
 
 =link-a($original-color, $hover-color, $decoration-type: none)
@@ -21,8 +23,9 @@
     text-decoration: $decoration-type  
     color: $original-color
 
-    &:hover,
     &:visited
+      color: $original-color
+    &:hover
       color: $hover-color
 
     cursor: pointer

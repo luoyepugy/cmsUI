@@ -1,6 +1,8 @@
 
 $(function() {
 
+    
+
     // 左侧选项卡菜单点击
     $('.jq-tabContent').find('ul:first').removeClass('none');
     $('.jq-tabMenu li').click(function() {
