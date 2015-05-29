@@ -46,17 +46,6 @@
   font-size: 1.2em
   +border-radius(8px)
 
-// 标签色块
-.tag_blue
-  @extend .button_mid
-  background: #00b7ee
-.tag_green
-  @extend .button_mid
-  background: #9dc02e
-.tag_pink
-  @extend .button_mid
-  background: #f19ec2
-
 // 文本输入框
 .input
   padding-left: 5px
@@ -74,6 +63,8 @@
   +link(#333, #333)
 .link_blue
   +link(#4e6e9f, #4e6e9f)
+.link_orange
+  +link($main_orange, $main_orange)
 .link_gray_light
   +link(#a1a6b7, #a1a6b7)
 .link_purple
@@ -115,7 +106,7 @@
   background-position: -80px -40px
 .icon-remind
   @extend %background-image
-  background-position: -120px 40px
+  background-position: -120px 80px
 .icon-hot
   @extend %background-image
   +size(40px, 25px)
@@ -137,7 +128,14 @@
 .icon-end
   @extend %background-image
   @extend %icon-online
-
+.icon-creator
+  @extend %background-image
+  background-position: -200px -80px
+  +position-common(absolute)
+.icon-admin
+  @extend %background-image
+  background-position: -240px -80px
+  +position-common(absolute)
 
 // 块元素一行显示
 .inline_li
@@ -149,6 +147,8 @@
   border-bottom: 1px solid #fff
 .bb_gray
   border-bottom: 1px solid #c9c9c9
+.bb_gray_mid
+  border-bottom: 1px solid #535353
 
 // =========================================
 // ============= 页面版块 ===================
@@ -183,6 +183,9 @@
 .nav_circle
   @extend .nav
   background-color: #210a24
+.nav_attention
+  @extend .nav
+  background-color: #16240a
 .nav_online
   @extend .nav
   background-color: #181a29
@@ -270,17 +273,16 @@
   color: #878787
 
 // 左右布局
-.layout_left_index
-  width: 900px
-  float: left
-  border-right: 1px solid #c9c9c9
 .layout_left
-  @extend .layout_left_index
+  display: inline-block
+  border-right: 1px solid #c9c9c9
   padding-right: 20px
+  vertical-align: top
   width: 880px
 .layout_right
-  float: left
+  display: inline-block
   width: 350px
+  vertical-align: top
 
 %background_tip
   +skin-bgfg(rgba(0,0,0,.7), #fff)
@@ -366,6 +368,21 @@
   li
     margin: 15px 9px 10px 0
 
+// 选项卡水平
+.tab_post 
+  margin: 30px 0 50px 0
+  li
+    padding: 5px 30px
+    cursor: pointer
+    &:hover
+      +skin-bgfg(#535353, #fff)
+  span
+    cursor: pointer
+    &:hover
+      color: $main_orange
+.tab_post_current
+  +skin-bgfg(#535353, #fff)
+  
 
 // =========================================
 // ============= 元件 ======================
@@ -375,9 +392,13 @@
 +form-validate-white
 
 // 字符限制
++elimit-width(5em)
 +elimit-width(8em)
 +elimit-width(15em)
++elimit-width(20em)
 +elimit-width(25em)
++elimit-width(30em)
++elimit-width(35em)
 
 // margin
 .margin_auto
@@ -385,7 +406,8 @@
 
 // 段落
 .p
-  line-height: 140%
+  line-height: 160%
+  margin-bottom: 7px
 
 // 多行文本输入框
 .textarea
@@ -400,9 +422,25 @@
 .mh50
   margin: 0 50px
 
+// 帖子标签
+.tag_post
+  +size(100px, 50px)
+  line-height: 50px
+  text-align: center
+  color: #fff
+  margin: 5px 0 5px 5px
+
 // 背景
 .bg_gray
   background: #707070
+.bg_blue
+  background: #00b7ee
+.bg_pink
+  background: #ea68a2
+.bg_green
+  background: #9dc02e
+.bg_yellow
+  background: #ffb800
 
 // 尺寸
 +size-icon(200, 120)

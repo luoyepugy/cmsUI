@@ -12,8 +12,6 @@ module.exports = function(grunt) {
                     '../cms/html/css/common.min.css': 'sass/common.sass', 
                     '../cms/html/css/pages/index.min.css': 'sass/pages/index.sass',
                     '../cms/html/css/pages/circle.min.css': 'sass/pages/circle.sass',
-                    '../cms/html/css/pages/article.min.css': 'sass/pages/article.sass',
-                    '../cms/html/css/pages/online.min.css': 'sass/pages/online.sass',
                     '../cms/html/css/pages/space.min.css': 'sass/pages/space.sass'
                 }
             }
@@ -28,11 +26,11 @@ module.exports = function(grunt) {
                 cwd: 'js/pages/',
                 src: ['**/*.js'],
                 dest: '../cms/html/js/pages/',
-                ext: '.min.js'
+                ext: '.js'
             },
             build: { 
                 files: {
-                    '../cms/html/js/common.min.js': 'js/common.js'
+                    '../cms/html/js/common.js': 'js/common.js'
                 }         
             }
         },

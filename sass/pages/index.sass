@@ -2,6 +2,10 @@
 @import ../mixin
 
 
+// ========================================
+// ================== 首页 ================
+// ========================================
+
 // banner/登录块
 .banner
   background: url('../../images/banner-bg.jpg')
@@ -66,11 +70,6 @@
   font-size: 26px
   z-index: 100
 
-
-// 线上活动
-.online_list li
-  margin: 0 0 15px 25px
-
 // 左侧选项卡菜单
 .tab_menu
   width: 160px
@@ -108,12 +107,13 @@
 // 大神妙答
 .questions_content
   padding: 45px 20px 20px 0
+  width: 600px
   li
     margin-bottom: 30px
 
 
 // 神图秀场
-.article_content
+.article_index
   margin-left: 30px
   width: 300px
   +display-inline(150px, 130px)
@@ -121,8 +121,6 @@
     margin-bottom: 20px
 
 // 放映室
-.video
-  padding-top: 10px
 .video_content
   padding-bottom: 20px
   li
@@ -145,3 +143,34 @@
   +size(200px, 120ppx)
   background: rgba(0,0,0,.7)
   +position-common(absolute)
+
+
+
+// ========================================
+// =============== 神图秀场 ===============
+// ========================================
+
+// 神图秀场左侧列表
+.article_list
+  margin: 20px 0
+  li
+    margin-bottom: 30px
+    
+// 列表左侧用户块
+.article_user
+  width: 130px
+  vertical-align: top
+  display: inline-block
+
+// 列表内容块
+.article_content
+  +display-inline(420px, 240px)
+  background: $main_bg
+  padding: 20px
+  margin-bottom: 20px
+  width: 690px
+
+
+// ========================================
+// ================ 知乎 ==================
+// ========================================

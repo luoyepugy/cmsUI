@@ -23,6 +23,28 @@ $(function() {
 	    	$('.jq-top-nav').removeClass('fixed_top_nav');
 	    }
     });
+
+    // 字符限制
+    function characterLimit (selector, len) {
+        selector.each(function() {
+            var text = $(this).text();
+            if(text.length > len) {
+                $(this).text(text.substr(0, len) + '...');
+            }
+        });
+    }
+
+    characterLimit($('.jq-elimit25'), 25);
+    characterLimit($('.jq-elimit35'), 35);
+    characterLimit($('.jq-elimit45'), 45);
     
 
+    // 水平选项卡点击后样式变化
+    $('.jq-tab-post li').click(function() {
+        $(this).parent().find('li').toggleClass('tab_post_current gray_mid');
+    });
+
+    $('.jq-tab-orange span').click(function() {
+        $(this).parent().find('span').toggleClass('orange');
+    });
 })

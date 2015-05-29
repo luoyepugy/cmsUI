@@ -19,14 +19,22 @@
   cursor: pointer
   text-overflow: clip
 
-
+%ellipsis_block
+  display: block
+  white-space: nowrap
+  overflow: hidden
+  cursor: pointer
+  text-overflow: ellipsis
 
 =elimit-width($width)
   .elimit#{$width}
     @extend %ellipsis
     max-width: $width
 
-
+=elimit-width-block($width)
+  .elimitb#{$width}
+    @extend %ellipsis_block
+    max-width: $width
 
 =climit-width($width)
   .climit#{$width}
