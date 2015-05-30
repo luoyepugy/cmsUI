@@ -149,6 +149,15 @@
   @extend %background-image
   background-position: -240px -80px
   +position-common(absolute)
+.icon-venus
+  +skin-bgfg(#f19ec2, #fff)
+  +size(20px)
+  line-height: 20px
+  text-align: center
+  display: inline-block
+.icon-mars 
+  @extend .icon-venus
+  +skin-bgfg(#00b7ee, #fff)
 
 // 块元素一行显示
 .inline_li
@@ -277,6 +286,10 @@
 .title
   font-size: 20px
   +line-height(45px)
+.title_14
+  font-size: 14px
+  +line-height(30px)
+  border-bottom: 1px solid #ccc
 .title_16
   font-size: 16px
   +line-height(35px)
@@ -290,12 +303,17 @@
   display: inline-block
   border-right: 1px solid #c9c9c9
   padding-right: 20px
+  padding-bottom: 20px
   vertical-align: top
   width: 880px
 .layout_right
   display: inline-block
   width: 350px
   vertical-align: top
+.layout_right_padding
+  @extend .layout_right
+  padding-left: 10px
+  width: 340px
 
 %background_tip
   +skin-bgfg(rgba(0,0,0,.7), #fff)
@@ -313,22 +331,6 @@
   width: 100px
   text-align: right
 
-// 性别卡片图标
-.icon-venus
-  +skin-bgfg(#f19ec2, #fff)
-  +size(20px)
-  line-height: 20px
-  text-align: center
-  display: inline-block
-.icon-mars 
-  @extend .icon-venus
-  +skin-bgfg(#00b7ee, #fff)
-
-
-// 用户信息右部分
-.user
-  background: $main_bg
-  height: 120px
 // 头像
 %user_portrait
   +size(75px)
@@ -343,7 +345,6 @@
 .user_portrait
   @extend %user_portrait
   margin: 15px 0 0 20px
-  position: relative
 
 // 头像名片
 .user_portrait_card
@@ -359,13 +360,18 @@
   .content
     padding: 15px 15px 0 15px
     height: 82px
-  .infos
+  .card_infos
     padding: 13px 10px
     background: black
 
 .user_portrait_rcard
   @extend .user_portrait_card
   left: 60px
+  .card_infos
+    text-align: right
+  .card_icons
+    margin-left: 10px
+    float: right
 
 // 图标菜单
 .icon-menu
@@ -396,7 +402,8 @@
       +skin-bgfg(#535353, #fff)
 .tab_post_current
   +skin-bgfg(#535353, #fff)
- 
+
+// 选项卡右侧排序 
 .tab_orange
   li
     cursor: pointer
@@ -406,13 +413,30 @@
       color: $main_orange
 
 // 推荐关注的人
-.attention_content li
-  margin-top: 20px
-  margin-bottom: 20px
-  position: relative
-  padding-bottom: 10px
+.portrait_sex 
+  li
+    margin-top: 20px
+    margin-bottom: 20px
+    position: relative
+    padding-bottom: 10px
 .user_infos
   +position(relative, bottom, 15px, left, 20px)
+
+// 帖子标签
+.tag_post
+  +size(100px, 50px)
+  line-height: 50px
+  text-align: center
+  color: #fff
+  margin: 5px 0 5px 5px
+
+// 视频帖
+.video_post
+  +size(240px, 150px)
+  +skin-bgfg(#000, #fff)
+  font-size: 50px
+  line-height: 150px
+  text-align: center
 
 
 // =========================================
@@ -431,10 +455,6 @@
 +elimit-width(30em)
 +elimit-width(35em)
 
-// margin
-.margin_auto
-  margin: 0 auto
-
 // 段落
 .p
   line-height: 160%
@@ -445,29 +465,13 @@
   width: 94%
   height: 100px
 
-// pv20
+// 内外边距
 .pv20
   padding: 20px 0
 .mh10
   margin: 0 10px
 .mh50
   margin: 0 50px
-
-// 帖子标签
-.tag_post
-  +size(100px, 50px)
-  line-height: 50px
-  text-align: center
-  color: #fff
-  margin: 5px 0 5px 5px
-
-// 视频帖
-.video_post
-  +size(240px, 150px)
-  +skin-bgfg(#000, #fff)
-  font-size: 50px
-  line-height: 150px
-  text-align: center
 
 // 背景
 .bg_gray
@@ -480,6 +484,8 @@
   background: #9dc02e
 .bg_yellow
   background: #ffb800
+.bg_orange
+  background: $main_bg
 
 // 尺寸
 +size-icon(200, 120)
@@ -493,14 +499,6 @@
 +size-icon(40)
 +size-icon(120)
 +size-icon(180)
-
-// 背景色
-.bg_orange
-  background: $main_bg
-.bg_orange2
-  @extend .bg_orange
-  width: 100%
-  float: left
 
 
 // 颜色
