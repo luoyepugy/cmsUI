@@ -97,13 +97,6 @@
   font-size: 16px
   +position-common(absolute)
 
-// 推荐关注的人
-.attention_content li
-  margin: 20px 0 30px 0
-  position: relative
-.user_infos
-  +position(relative, bottom, 20px, left, 20px)
-
 // 大神妙答
 .questions_content
   padding: 45px 20px 20px 0
@@ -169,8 +162,22 @@
   padding: 20px
   margin-bottom: 20px
   width: 690px
+.article_content_post
+  @extend .article_content
+  background: #fff
 
 
 // ========================================
 // ================ 知乎 ==================
 // ========================================
+
+// 头像图标
+.icon-portrait
+  +size(40px)
+  overflow: hidden
+  +border-radius(20px)
+  +box-shadow(0px 0px 3px #aaa)
+
+// 问答关于头像
+.question_answer
+  +display-inline(820px, 40px)

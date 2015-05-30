@@ -1,6 +1,15 @@
 
 @import ../mixin
 
+// 空间右侧菜单列表
+.space_menu
+  li
+    +line-height(35px)
+    border-bottom: 1px solid #c9c9c9
+    padding-left: 10px
+  .current
+    color: $main_orange
+
 // 空间个人卡片
 .space_card
   +display-inline(200px, 620px)
@@ -16,7 +25,15 @@
   padding: 10px 0
 
 // 标签块
-.tag
+.tag_space
   width: 420px
   li
     margin: 0 5px 5px 0
+
+// 我加入的圈子
+.circle_join_detail
+  li
+    padding: 15px
+    background: $main_bg
+    width: 230px
+    margin: 15px 15px 5px 15px

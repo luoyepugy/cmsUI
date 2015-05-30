@@ -1,16 +1,6 @@
 
 $(function() {
 
-    // 左侧选项卡菜单点击
-    $('.jq-tabContent').find('ul:first').removeClass('none');
-    $('.jq-tabMenu li').click(function() {
-        var index = $(this).index();
-        $('.jq-tabMenu li').removeClass('tab_current');
-        $(this).addClass('tab_current');
-        $(this).closest('.jq-tabContent').find('ul').addClass('none');
-        $(this).closest('.jq-tabContent').find('ul').eq(index).removeClass('none');
-    });
-
     // 登录验证提示
     function signin_validate(selector, messages) {
         $('em.error').remove();

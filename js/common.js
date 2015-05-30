@@ -47,4 +47,29 @@ $(function() {
     $('.jq-tab-orange span').click(function() {
         $(this).parent().find('span').toggleClass('orange');
     });
+
+
+    // 左侧选项卡菜单点击
+    // $('.jq-tabContent').find('ul:first').removeClass('none');
+    // $('.jq-tabMenu li').click(function() {
+    //     var index = $(this).index();
+    //     $('.jq-tabMenu li').removeClass('tab_current');
+    //     $(this).addClass('tab_current');
+    //     $(this).closest('.jq-tabContent').find('ul').addClass('none');
+    //     $(this).closest('.jq-tabContent').find('ul').eq(index).removeClass('none');
+    // });
+
+    function tabToggle(menu_selector, current_class) {
+        $('.jq-tabContent').find('ul:first').removeClass('none');
+        menu_selector.click(function() {
+            var index = $(this).index();
+            menu_selector.removeClass(current_class);
+            $(this).addClass(current_class);
+            $('.jq-tabContent').find('ul').addClass('none').eq(index).removeClass('none');
+        });
+    }
+
+    tabToggle($('.jq-tabMenu-index li'), 'tab_current');
+    tabToggle($('.jq-tabMenu li'), 'orange');
+
 })
