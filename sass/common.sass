@@ -18,20 +18,22 @@
   display: inline-block
   padding: 3px 5px
   cursor: pointer
+  font-family: "微软雅黑"
 .button_code
-  @extend .button
-  +button-fixedwidth(90px, 29px, #959595)
+  margin-left: 7px
+  img
+    +size(90px, 35px)
 .button_signup
   @extend .button
   border: 1px solid #fff
-  +size(50px, 27px)
+  width: 40px
   background: rgba(0,0,0,0)
 .button_signin
   @extend .button
   +size(50px, 27px)
 .button_gray
   @extend .button
-  background: #ccc
+  background: #a0a0a0
 .button_small
   @extend .button
   padding: 3px 7px 3px 5px
@@ -40,8 +42,8 @@
   @extend .button
   padding: 5px 7px
 .button_lg
-  @extend .button
-  padding: 8px 10px
+  @extend .button_mid
+  width: 70px
 .button_xg
   @extend .button
   padding: 10px
@@ -54,7 +56,7 @@
   +border-radius(5px)
   padding: 5px 15px
 .button_attention
-  @extend .button_lg
+  @extend .button_mid
   background: #a0a0a0
   +position(absolute, right, 0, bottom, 15px)
 // 文本输入框
@@ -66,12 +68,24 @@
   +border-radius(3px)
   outline: 0
   border: 0
+  font-family: "微软雅黑"
+.input_sign
+  @extend .input
+  +line-height(30px)
+  border: 1px solid #ccc
+  width: 500px
+.input_form
+  @extend .input
+  border: 1px solid #ccc
+  +line-height(30px)
 
 // 超链接
 .link_white
   +link(#fff, #fff)
 .link_gray
   +link(#333, #333)
+.link_gray_white
+  +link(#333, #fff)
 .link_blue
   +link(#4e6e9f, #4e6e9f)
 .link_orange
@@ -117,6 +131,10 @@
 .icon-coin2
   @extend %background-image
   background-position: -80px -40px
+.icon-coin3
+  @extend %background-image
+  background-position: -90px -90px
+  +size(25px)
 .icon-remind
   @extend %background-image
   background-position: -120px 80px
@@ -135,12 +153,20 @@
 %icon-online
   +size(80px, 70px)
   +position(absolute, right, 20px, top, 0)
-.icon-ing
-  @extend %background-image
-  @extend %icon-online
+.icon-ing,
 .icon-end
-  @extend %background-image
   @extend %icon-online
+  z-index: 3
+.icon-attention
+  @extend %icon-online
+.attention_num
+  @extend %icon-online
+  color: #fff
+  text-align: center
+  +line-height(35px)
+.attention_text
+  @extend .attention_num
+  top: 20px
 .icon-creator
   @extend %background-image
   background-position: -200px -80px
@@ -189,14 +215,42 @@
   padding: 7px 0
   position: relative
 .top_nav *
-  display: inline-block
   vertical-align: middle
 .top_nav_list
+  display: inline-block
+  width: 1025px
   li
     margin-right: 30px
+    display: inline-block
 .top_nav_remind
-  margin: 9px 12px
+  +position(relative, top, 5px, left, 12px)
   color: #fff
+.top_nav_user
+  display: inline-block
+  width: 100px
+.user_attach
+  cursor: pointer
+  display: inline-block
+  padding: 10px
+  +position(absolute, right, 0, top, 10px)
+  z-index: 9
+  background: #fff
+.user_attach_hover
+  border: 1px solid #c9c9c9
+  border-bottom: 0
+.user_menu
+  +position(absolute, right, 0, top, 45px)
+  border: 1px solid #c9c9c9
+  z-index: 8
+  background: #fff
+  width: 136px
+  text-align: left
+  a
+    display: block
+    padding: 10px 10px 10px 20px
+    color: #333
+    &:hover
+      color: $main_orange
 
 // 导航
 .nav
@@ -212,7 +266,7 @@
   @extend .nav
   background-color: #181a29
 .nav_logo
-  margin: 0 120px 0 20px
+  margin: 0 95px 0 20px
 .nav_list 
   font-size: 18px
   li
@@ -220,7 +274,7 @@
     padding: 10px 20px
 
 .nav_search
-  margin: 15px 0 0 120px
+  margin: 15px 0 0 70px
   width: 320px
   float: right
 .nav_search_input
@@ -259,16 +313,15 @@
 .pagination
   text-align: center
   margin: 50px 0
-  .page
+  .on
+    +skin-bgfg($main_orange, #fff)
     padding: 5px 10px
+  a
+    padding: 5px 10px
+    color: #333
     &:hover
       +skin-bgfg($main_orange, #fff)
-  .input
-    border: 1px solid #ccc
-    width: 40px
-    +line-height(25px)
-  .current
-    +skin-bgfg($main_orange, #fff)
+    
 
 
 // =========================================
@@ -299,19 +352,21 @@
   color: #878787
 
 // 左右布局
-.layout_left
+.layout_left_index
   display: inline-block
   border-right: 1px solid #c9c9c9
   padding-right: 20px
-  padding-bottom: 20px
   vertical-align: top
   width: 880px
-.layout_right
+.layout_left
+  @extend .layout_left_index
+  margin-bottom: 20px
+.layout_right_index
   display: inline-block
   width: 350px
   vertical-align: top
-.layout_right_padding
-  @extend .layout_right
+.layout_right
+  @extend .layout_right_index
   padding-left: 10px
   width: 340px
 
@@ -345,6 +400,7 @@
 .user_portrait
   @extend %user_portrait
   margin: 15px 0 0 20px
+  position: relative
 
 // 头像名片
 .user_portrait_card
@@ -360,18 +416,25 @@
   .content
     padding: 15px 15px 0 15px
     height: 82px
-  .card_infos
-    padding: 13px 10px
+  .card_bottom
     background: black
+    font-size: 12px
+    color: #fff
+    padding: 7px 15px
+  .card_bottom_info
+    li
+      margin: 0 10px
+      padding: 0
+    span
+      display: block
+      text-align: center
+
 
 .user_portrait_rcard
   @extend .user_portrait_card
   left: 60px
-  .card_infos
+  .card_bottom_info
     text-align: right
-  .card_icons
-    margin-left: 10px
-    float: right
 
 // 图标菜单
 .icon-menu
@@ -411,9 +474,23 @@
     line-height: 30px
     &:hover
       color: $main_orange
+// 收藏夹选项卡
+.tab_collection
+  border-bottom: 2px solid $main_orange
+  margin: 20px 0 30px 0
+  position: relative
+  li
+    padding: 10px 15px
+    margin-bottom: -3px
+    cursor: pointer
+    &.current
+      border: 2px solid $main_orange
+      border-bottom: 3px solid #fff
+  .button_mid
+    +position(absolute, right, 0, bottom, 7px)
 
 // 推荐关注的人
-.portrait_sex 
+.portrait_sex
   li
     margin-top: 20px
     margin-bottom: 20px
@@ -438,6 +515,49 @@
   line-height: 150px
   text-align: center
 
+// 加载图标
+.loading
+  +position(absolute, left, 45%, top, 45%)
+  +size(40px)
+
+// 帖子文本
+.post_text
+  width: 450px
+  display: inline-block
+  vertical-align: middle
+
+// 活动结束背景层
+.end_bg
+  +size(300px, 150px)
+  +position-common(absolute)
+  background: rgba(0,0,0,.6)
+  z-index: 2
+
+// 空间右侧菜单列表
+.space_menu
+  li
+    +line-height(35px)
+    border-bottom: 1px solid #c9c9c9
+    padding-left: 10px
+  .current
+    color: $main_orange
+
+// 头像图标
+.icon-portrait
+  +size(40px)
+  overflow: hidden
+  +border-radius(20px)
+  +box-shadow(0px 0px 3px #aaa)
+
+// 表单左右布局
+%margin
+  margin: 50px 0
+.form_edit
+  +edit-table(87px, 600px)
+  @extend %margin
+.form_account
+  +edit-table(75px, 400px)
+  @extend %margin
 
 // =========================================
 // ============= 元件 ======================
@@ -445,6 +565,7 @@
 
 // 表单验证
 +form-validate-white
++form-validate
 
 // 字符限制
 +elimit-width(5em)
@@ -454,6 +575,7 @@
 +elimit-width(25em)
 +elimit-width(30em)
 +elimit-width(35em)
++elimit-width(45em)
 
 // 段落
 .p
@@ -462,20 +584,31 @@
 
 // 多行文本输入框
 .textarea
-  width: 94%
+  width: 99%
   height: 100px
+  outline: none
+  padding-left: 5px
+  border: 1px solid #c9c9c9
+  font-family: "微软雅黑"
+  font-size: 1em
 
 // 内外边距
 .pv20
   padding: 20px 0
 .mh10
   margin: 0 10px
+.mh25
+  margin: 0 25px
 .mh50
   margin: 0 50px
+.mt22
+  margin-top: 22px
 
 // 背景
 .bg_gray
   background: #707070
+.bg_gray_light
+  background: #bfbfbf
 .bg_blue
   background: #00b7ee
 .bg_pink

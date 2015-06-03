@@ -1,0 +1,49 @@
+
+@import ../mixin
+
+// 邮件消息列表
+.email_list
+  li
+    border-bottom: 1px solid #c9c9c9
+    padding: 15px
+    &:hover
+      background: $main_bg
+%email
+  display: inline-block
+  vertical-align: top
+.email_icon
+  width: 40px
+  @extend %email
+  margin: 3px 10px 0 0
+.email_icon2
+  @extend .email_icon
+  margin-left: 50px
+.email_content
+  width: 660px
+  @extend %email
+  margin-right: 30px
+.email_content2
+  @extend .email_content
+  width: 611px
+.email_time
+  width: 100px
+  @extend %email
+  text-align: right
+
+// 私信开始时间
+.letter_start
+  +line-height(35px)
+  color: #fff
+  padding-left: 30px
+  width: 97%
+  background: $main_orange
+  margin: 20px 0 30px 0
+// 私信时间分割线
+.line_time
+  border-bottom: 1px solid #c9c9c9
+  color: #7d7d7d
+  text-align: center
+  span
+    +position(relative, top, 12px, right, 0)
+    background: #fff
+    padding: 10px

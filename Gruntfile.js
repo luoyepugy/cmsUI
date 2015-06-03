@@ -12,14 +12,14 @@ module.exports = function(grunt) {
                     '../cms/html/css/common.min.css': 'sass/common.sass', 
                     '../cms/html/css/pages/index.min.css': 'sass/pages/index.sass',
                     '../cms/html/css/pages/circle.min.css': 'sass/pages/circle.sass',
-                    '../cms/html/css/pages/space.min.css': 'sass/pages/space.sass'
+                    '../cms/html/css/pages/space.min.css': 'sass/pages/space.sass',
+                    '../cms/html/css/pages/email.min.css': 'sass/pages/email.sass'
                 }
             }
         },
         uglify: {
             options: {  
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n',
-                report: "min"
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
             },  
             buildall:{
                 expand:true,
