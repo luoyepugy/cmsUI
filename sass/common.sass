@@ -309,6 +309,7 @@
   color: #a1a6b7
   font-size: 12px
 
+
 // 分页
 .pagination
   text-align: center
@@ -457,32 +458,39 @@
 // 水平选项卡
 .tab_post
   display: inline-block
-  li
+  a
+    color: #333
     display: inline-block
-    padding: 8px 30px
-    cursor: pointer
-    &:hover
+    padding: 5px 25px
+    &:hover,
+    &.current
       +skin-bgfg(#535353, #fff)
-.tab_post_current
-  +skin-bgfg(#535353, #fff)
 
 // 选项卡右侧排序 
 .tab_orange
-  li
-    cursor: pointer
+  a
+    color: #333
     display: inline-block
     line-height: 30px
-    &:hover
+    margin-left: 15px
+    &:hover,
+    &.current
       color: $main_orange
+
 // 收藏夹选项卡
 .tab_collection
   border-bottom: 2px solid $main_orange
   margin: 20px 0 30px 0
   position: relative
-  li
+  font-size: 16px
+  p
+    line-height: 40px
+  a
+    color: #333
     padding: 10px 15px
     margin-bottom: -3px
-    cursor: pointer
+    &:hover
+      color: #333
     &.current
       border: 2px solid $main_orange
       border-bottom: 3px solid #fff
@@ -535,12 +543,17 @@
 
 // 空间右侧菜单列表
 .space_menu
-  li
+  li    
+    border-bottom: 1px solid #c9c9c9  
+  a
+    display: inline-block
+    width: 90%
     +line-height(35px)
-    border-bottom: 1px solid #c9c9c9
     padding-left: 10px
-  .current
-    color: $main_orange
+    color: #333
+    &:hover,
+    &.current
+      color: $main_orange
 
 // 头像图标
 .icon-portrait
@@ -603,7 +616,9 @@
   margin: 0 50px
 .mt22
   margin-top: 22px
-
+.ml88
+  margin-left: 88px
+  
 // 背景
 .bg_gray
   background: #707070

@@ -64,7 +64,6 @@ $(function() {
     tabToggle($('.jq-tabMenu-index li'), 'tab_current');
     tabToggle($('.jq-tabMenu li'), 'orange');
     tabToggle($('.jq-tabMenu-video li'), 'tab_post_current');
-    tabToggle($('.jq-tabMenu-collecion li'), 'current');
 
     // 快速评论按钮
     $('.jq-commentBtn').click(function() {
