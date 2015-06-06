@@ -1,0 +1,27 @@
+
+@import ../mixin
+
+// 条款
+.items
+  margin-bottom: 30px
+.items_title
+  background: $main_bg
+  +line-height(30px)
+  font-size: 16px
+  padding-left: 20px
+.items_list
+  margin: 10px 20px
+  li
+    line-height: 30px
+
+// 锚点
+.anchor
+  +position(fixed, top, 200px, right, 560px)
+  li
+    line-height: 30px
+    list-style-type: circle
+  a
+    color: #333
+    &:hover,
+    &.current
+      color: $main_orange

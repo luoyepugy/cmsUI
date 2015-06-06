@@ -10,11 +10,8 @@ module.exports = function(grunt) {
                 },
                 files: {
                     '../cms/html/css/common.min.css': 'sass/common.sass', 
-                    '../cms/html/css/pages/index.min.css': 'sass/pages/index.sass',
-                    '../cms/html/css/pages/circle.min.css': 'sass/pages/circle.sass',
-                    '../cms/html/css/pages/space.min.css': 'sass/pages/space.sass',
-                    '../cms/html/css/pages/email.min.css': 'sass/pages/email.sass',
-                    '../cms/html/css/pages/account.min.css': 'sass/pages/account.sass'
+                    '../cms/html/css/pages.min.css': 'sass/pages.sass', 
+                    '../cms/html/css/pages/index.min.css': 'sass/pages/index.sass'
                 }
             }
         },

@@ -50,6 +50,12 @@ $(function() {
         $(this).parent().find('li').toggleClass('orange');
     });
 
+    // 用户协议右侧锚点链接
+    $('.jq-anchor a').click(function() {
+        $('.jq-anchor a').removeClass('current');
+        $(this).addClass('current');
+    });
+
 
     // tab选项卡点击切换不同内容
     function tabToggle(menu_selector, current_class) {
