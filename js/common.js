@@ -1,7 +1,7 @@
 
 $(function() {
 
-	// 头像效果
+    // 头像效果
     $('.jq-portrait').hover(function() {
         $('.loading').remove();
         $(this).css('z-index', '2').next('div').removeClass('none');
@@ -18,12 +18,12 @@ $(function() {
 
     // 顶部导航交互
     $(document).scroll(function() {
-    	var top_distance = $(document).scrollTop();
-	    if(top_distance > 54) {
-	    	$('.jq-top-nav').addClass('fixed_top_nav');
-	    } else {
-	    	$('.jq-top-nav').removeClass('fixed_top_nav');
-	    }
+        var top_distance = $(document).scrollTop();
+        if(top_distance > 54) {
+            $('.jq-top-nav').addClass('fixed_top_nav');
+        } else {
+            $('.jq-top-nav').removeClass('fixed_top_nav');
+        }
     });
 
 
@@ -42,12 +42,12 @@ $(function() {
     
 
     // 水平选项卡点击后样式变化
-    $('.jq-tab-post li').click(function() {
-        $(this).parent().find('li').toggleClass('tab_post_current gray_mid');
+    $('.jq-tab-post a').click(function() {
+        $(this).parent().find('a').toggleClass('tab_post_current gray_mid');
     });
 
-    $('.jq-tab-orange li').click(function() {
-        $(this).parent().find('li').toggleClass('orange');
+    $('.jq-tab-orange a').click(function() {
+        $(this).parent().find('a').toggleClass('orange');
     });
 
     // 用户协议右侧锚点链接
@@ -68,8 +68,8 @@ $(function() {
         });
     }
     tabToggle($('.jq-tabMenu-index li'), 'tab_current');
-    tabToggle($('.jq-tabMenu li'), 'orange');
-    tabToggle($('.jq-tabMenu-video li'), 'tab_post_current');
+    tabToggle($('.jq-tabMenu a'), 'orange');
+    tabToggle($('.jq-tabMenu-video a'), 'tab_post_current');
 
     // 快速评论按钮
     $('.jq-commentBtn').click(function() {

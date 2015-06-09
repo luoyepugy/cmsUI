@@ -1,4 +1,6 @@
 
+
+
 $(function() {
 
     // 登录验证提示
@@ -53,5 +55,28 @@ $(function() {
     }, function() {
         $(this).find('.video_hover').fadeOut('400', function() { $(this).addClass('none'); });
     });
+
+
+    // 换一批
+    $('.jq-change').click(function() {
+        var url = $(this).data('uri');
+        $.ajax({
+            type: "POST", // 此处应用POST
+            url: url,
+            dataType: "json",
+            success: function (data) {
+                if(data.status == 1) {         
+                    $('.portrait_sex').empty().html(data.data);
+                } else if(data.status == 0) {
+                    alert(data.msg);
+                } else if(data.status == 254) {
+                    alert('请登录！');
+                }       
+            },
+            error: function() {
+                signin_validate($('.jq-code'), '加载数据错误！');
+            }
+        });
+    })
 
 });
