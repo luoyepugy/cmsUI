@@ -19,13 +19,16 @@
 
 // 圈子成员
 .circle_members
+  padding-left: 10px
   li
-    margin: 0 20px 10px 15px
+    padding: 0 30px 10px 5px
+    position: relative
 
 // 覆盖样式，加入的圈子
 .circle_join_md
   li
     margin-top: 0
+    position: relative
 
 // 用户身份
 .user_identity
@@ -33,3 +36,11 @@
   +line-height(120px)
   text-align: center
   color: #7d7d7d
+
+// 圈子成员管理图标
+.adminBtn
+  +position(absolute, right, 5px, top, 15px)
+  width: 25px
+  text-align: center
+  color: #7d7d7d
+  

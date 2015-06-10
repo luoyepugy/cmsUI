@@ -1,6 +1,10 @@
 
 @import ../mixin
 
+%display_bug
+  display: inline-block
+  *display: inline
+  *zoom: 1
 
 // ========================================
 // ================== 首页 ================
@@ -63,12 +67,12 @@
   +position(absolute, top, 45px, left, -9px)
   color: #edece0
   font-size: 26px
-  z-index: 100
+  z-index: 10
 .card_blue_triangle
   +position(absolute, top, 45px, right, -9px)
   color: #d7e6ee
   font-size: 26px
-  z-index: 100
+  z-index: 10
 
 // 左侧选项卡菜单
 .tab_menu
@@ -153,7 +157,7 @@
 .post_portrait
   width: 130px
   vertical-align: top
-  display: inline-block
+  @extend %display_bug
   position: relative
 
 // 列表内容块

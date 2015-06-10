@@ -15,7 +15,7 @@
   +skin-bgfg($main_orange, #fff)
   text-align: center
   border: 0
-  display: inline-block
+  @extend %display_bug
   padding: 3px 5px
   cursor: pointer
   font-family: "微软雅黑"
@@ -24,7 +24,7 @@
   width: 55px
   text-align: left
   .good_num
-    display: inline-block
+    @extend %display_bug
     text-align: center
     font-style: normal
     width: 40px
@@ -88,6 +88,21 @@
   border: 1px solid #ccc
   +line-height(30px)
 
+// 圈子成员搜索输入框
+.circleSearch
+  float: right
+  +size(200px, 25px)
+  border: 1px solid #c9c9c9
+  overflow: hidden
+  color: #7d7d7d
+  margin-top: 10px
+  +border-radius(3px)
+.circleSearch_input
+  @extend .input
+  +line-height(25px)
+  width: 87%
+
+
 // 超链接
 .link_white
   +link(#fff, #fff)
@@ -119,7 +134,7 @@
   +size(40px)
   overflow: hidden
   background-image: url("../images/icons.png")
-  display: inline-block
+  @extend %display_bug
 .icon-smc
   @extend %background-image
   background-position: 0 0
@@ -189,7 +204,7 @@
   +size(20px)
   line-height: 20px
   text-align: center
-  display: inline-block
+  @extend %display_bug
 .icon-mars 
   @extend .icon-venus
   +skin-bgfg(#00b7ee, #fff)
@@ -197,7 +212,7 @@
 // 块元素一行显示
 .inline_li
   li
-    display: inline-block
+    @extend %display_bug
 
 // 底部白色线
 .bb_white
@@ -207,9 +222,16 @@
 .bb_gray_mid
   border-bottom: 1px solid #535353
 
+// IE属性display:inline-block的bug
+%display_bug
+  display: inline-block
+  *display: inline
+  *zoom: 1
+
 // =========================================
 // ============= 页面版块 ===================
 // =========================================
+
 
 // 固定顶部导航
 .fixed_top_nav
@@ -226,24 +248,24 @@
   .not_signin
     width: 230px
     text-align: right
-    display: inline-block
+    @extend %display_bug
 .top_nav *
   vertical-align: middle
 .top_nav_list
-  display: inline-block
+  @extend %display_bug
   width: 1025px
   li
     margin-right: 30px
-    display: inline-block
+    @extend %display_bug
 .top_nav_remind
   +position(relative, top, 5px, left, 12px)
   color: #fff
 .top_nav_user
-  display: inline-block
+  @extend %display_bug
   width: 100px
 .user_attach
   cursor: pointer
-  display: inline-block
+  @extend %display_bug
   padding: 10px
   +position(absolute, right, 0, top, 10px)
   z-index: 9
@@ -289,7 +311,6 @@
 .nav_search
   margin: 15px 0 0 70px
   width: 320px
-  float: right
   .input
     overflow: hidden
 .nav_search_input
@@ -302,7 +323,7 @@
   margin-top: 5px
   dt,
   dd
-    display: inline-block
+    @extend %display_bug
     margin-right: 5px
   
 // 链接
@@ -310,7 +331,7 @@
   padding: 50px 150px
 .links_list
   width: 150px
-  display: inline-block
+  @extend %display_bug
   text-align: center
   dd,
   dt
@@ -376,7 +397,7 @@
 
 // 左右布局
 .layout_left_index
-  display: inline-block
+  @extend %display_bug
   border-right: 1px solid #c9c9c9
   padding-right: 20px
   vertical-align: top
@@ -385,7 +406,7 @@
   @extend .layout_left_index
   margin-bottom: 20px
 .layout_right_index
-  display: inline-block
+  @extend %display_bug
   width: 350px
   vertical-align: top
 .layout_right
@@ -463,7 +484,7 @@
   +size(15px)
   +border-radius(10px)
   background: #a0a0a0
-  display: inline-block
+  @extend %display_bug
 
 // 灰色文本小号
 .gray_small
@@ -478,10 +499,10 @@
 
 // 水平选项卡
 .tab_post
-  display: inline-block
+  @extend %display_bug
   a
     color: #333
-    display: inline-block
+    @extend %display_bug
     padding: 5px 25px
     &:hover,
     &.current
@@ -491,7 +512,7 @@
 .tab_orange
   a
     color: #333
-    display: inline-block
+    @extend %display_bug
     line-height: 30px
     margin-left: 15px
     &:hover,
@@ -555,7 +576,7 @@
 // 帖子文本
 .post_text
   width: 450px
-  display: inline-block
+  @extend %display_bug
   vertical-align: middle
 
 // 活动结束背景层
@@ -570,7 +591,7 @@
   li    
     border-bottom: 1px solid #c9c9c9  
   a
-    display: inline-block
+    @extend %display_bug
     width: 90%
     +line-height(35px)
     padding-left: 10px
@@ -625,6 +646,31 @@
   background-position: -6px -54px
 .tip-error .tip-l
   background-position: -6px -108px
+
+
+// 弹窗对话框
+.dialog_bg
+  +position-common(absolute)
+  background: rgba(0,0,0,.6)
+  width: 100%
+  z-index: 99
+.dialog
+  min-width: 500px
+  +position(fixed, top, 30%, left, 35%)
+  z-index: 100
+  background: #fff
+.dialog_title
+  +skin-bgfg(#4e6e9f, #fff)
+  margin: 3px
+  +line-height(35px)
+  padding: 0 20px
+  .icon-close
+    float: right
+    margin: -25px -10px
+    cursor: pointer
+.dialog_content
+  padding: 20px
+  
 
 
 // =========================================
