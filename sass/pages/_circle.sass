@@ -44,3 +44,38 @@
   text-align: center
   color: #7d7d7d
   
+// 添加友情圈子
+.addCircle
+  margin-left: 100px
+  li
+    display: inline-block
+    margin: 0 40px
+    color: #7d7d7d
+.addCircle_block
+  border: 1px dashed #aaa
+  +size(70px)
+  line-height: 70px
+  text-align: center
+
+// 数据统计表格
+.table_datas
+  +table
+    tr
+      border-bottom: 1px solid #c9c9c9
+    td
+      text-align: center
+
+// 数据块
+.datas_block
+  margin-left: 20px
+  color: #fff
+  font-size: 16px
+  li
+    +size(180px, 160px)
+    margin-right: 15px
+  span
+    display: block
+    margin-top: 10px
+    text-align: center
+    &:first-child
+      margin-top: 65px
