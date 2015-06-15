@@ -1,6 +1,26 @@
 
 $(function() {
 
+    function getByteLen(val) {
+        var len = 0;
+        for (var i = 0; i < val.length; i++) {
+             var a = val.charAt(i);
+             if (a.match(/[^\x00-\xff]/ig) != null) 
+            {
+                len += 2;
+            }
+            else
+            {
+                len += 1;
+            }
+        }
+        return len;
+    }
+
+    $.validator.addMethod('lengthLimit', function(value, element) {
+        return getByteLen(value) < 16 ? true : false;
+    }, '昵称必须少于8个字!');
+
 	$.validator.setDefaults({
         errorPlacement: function(error, element) { 
             element.closest('p').find('.jq-tip').remove();
@@ -21,13 +41,13 @@ $(function() {
 		rules: {
             "nickname": { 
                 required: true,
-                maxlength: 7
+                lengthLimit: true
             }
         },
         messages: {
             "nickname": {
                 required: "请输入昵称！",
-                maxlength: "昵称必须少于8个字！"
+                lengthLimit: "昵称必须少于8个字！"
             }
         }   
 	});

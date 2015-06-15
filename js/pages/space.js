@@ -1,6 +1,18 @@
 
 $(function() {
- 
+ 	
+	
+ 	$.smite.common.init({button:'.jq-change',success:function(data){
+        if(data.status==1){
+            $('.portrait_sex').empty().html( data.data );
+        }else if(data.status==254){
+            $.dialog();
+        }else{
+            $.smite.tip({content:data.msg,icon:'error'});
+        }
+    }});
+
+    
 	// 编辑个人简介
 	$('.jq-editInfo').click(function() {
 		$(this).addClass('none');

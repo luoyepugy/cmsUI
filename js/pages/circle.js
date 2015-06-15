@@ -34,4 +34,11 @@ $(function() {
 		icon_button: '.icon-playback-rewind2'
 	});
 
+	// 添加友情圈子
+	$.dialog({
+		button: '.jq-addCircle',
+        content: $('.jq-addCircle-form').html(),
+        title: '添加友情圈子'
+    });
+
 });

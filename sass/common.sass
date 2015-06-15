@@ -35,11 +35,11 @@
 .button_signup
   @extend .button
   border: 1px solid #fff
-  width: 40px
+  width: 60px
   background: rgba(0,0,0,0)
 .button_signin
   @extend .button
-  +size(50px, 27px)
+  +size(65px, 27px)
 .button_gray
   @extend .button
   background: #a0a0a0
@@ -620,6 +620,9 @@
 .form_account
   +edit-table(75px, 400px)
   @extend %margin
+.form_dialog
+  +edit-table(120px, 250px)
+
 
 // 提示信息
 .tipbox
@@ -659,7 +662,6 @@
   width: 100%
   z-index: 99
 .dialog
-  min-width: 500px
   +position(fixed, top, 30%, left, 35%)
   z-index: 100
   background: #fff
@@ -674,7 +676,12 @@
     cursor: pointer
 .dialog_content
   padding: 20px
-  
+
+.dialogLogin
+  +display_inline(400px, 210px)
+  .inline_left
+    padding: 20px 0 0 20px
+    border-right: 1px solid #c9c9c9
 
 
 // =========================================
@@ -729,13 +736,17 @@
   background: #707070
 .bg_gray_light
   background: #bfbfbf
-.bg_blue
+.bg_blue,
+.bg_0
   background: #00b7ee
-.bg_pink
+.bg_pink,
+.bg_1
   background: #ea68a2
-.bg_green
+.bg_green,
+.bg_2
   background: #9dc02e
-.bg_yellow
+.bg_yellow,
+.bg_3
   background: #ffb800
 .bg_orange
   background: $main_bg
