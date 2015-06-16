@@ -66,7 +66,6 @@
   padding: 5px 15px
 .button_attention
   @extend .button_mid
-  background: #a0a0a0
   +position(absolute, right, 0, bottom, 15px)
 // 文本输入框
 .input
@@ -579,7 +578,7 @@
 
 // 帖子文本
 .post_text
-  width: 450px
+  width: 350px
   @extend %display_bug
   vertical-align: middle
 
@@ -622,7 +621,9 @@
   @extend %margin
 .form_dialog
   +edit-table(120px, 250px)
-
+.form_post
+  +edit-table(75px, 620px)
+  @extend %margin
 
 // 提示信息
 .tipbox
