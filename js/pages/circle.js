@@ -37,8 +37,9 @@ $(function() {
 	// 添加友情圈子
 	$.dialog({
 		button: '.jq-addCircle',
-        content: $('.jq-addCircle-form').html(),
-        title: '添加友情圈子'
+        content: $('.jq-addCircle-form'),
+        title: '添加友情圈子',
+        width: '450px'
     });
 
 });

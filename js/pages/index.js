@@ -26,6 +26,7 @@ $(function() {
         } else if(name.length < 4 || name.length > 20) {
             signin_validate($('.jq-userName'), '请输入4-20个字符！');
         } else {
+            if(url==undefined||url=='') return;
             $.ajax({
                 type: "POST", // 此处应用POST
                 url: url,
@@ -37,8 +38,10 @@ $(function() {
                     "remember": remember
                 },
                 success: function (data) {
-                    if(data.status == 1) {         
-                        window.location.href = data.url;
+                    if(data.status == 1) {  
+                        if(data.url!=undefined&&data.url!=null)           
+                            window.location.href = data.url;
+                          window.location.reload();    
                     } else if(data.status == 0) {
                        signin_validate($('.jq-code'), data.msg);
                     }        

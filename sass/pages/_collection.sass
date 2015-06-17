@@ -1,0 +1,31 @@
+
+@import ../mixin
+
+// 收藏夹弹窗
+.dialogCollection
+  +display-inline(180px, 360px)
+  .inline_left
+    border-right: 1px solid #c9c9c9
+    padding-right: 20px
+  .inline_right
+    padding: 20px
+    vertical-align: top
+
+// 收藏夹详细页面列表
+.collectionList
+  li
+    background: $main_bg
+    padding: 15px
+    margin: 15px 0
+.contentWrap
+  background: #fff
+  padding: 15px
+  +box-shadow(2px 2px 2px #ccc)
+  .content
+    +display-inline(670px, 130px)
+    .inline_left
+      margin-right: 15px
+.commentTime
+  float: right
+  +position(relative, bottom, 20px, right, 0)
+

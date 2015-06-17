@@ -38,6 +38,7 @@
                     'height': $(document).height()
                 });
                 $('.J_dialog').css('width', s.width);
+                s.content.removeClass('none');
                 $('.J_dialog .dialog_content').html(s.content);
                 $('.J_dialog h4').text(s.title);
                 $('.J_dialog').attr('id',s.id);
@@ -322,8 +323,7 @@ $(function() {
     // 登录弹窗
     $.dialog({
         content: $('.dialogLogin'),
-        title: '登录',
-        width: '650px'
+        title: '登录'
     });
 
     // 顶部导航交互
