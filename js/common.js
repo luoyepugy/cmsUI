@@ -30,9 +30,9 @@
             },
         };
         options && $.extend(s, options);
-
         $(s.button).on({
             click: function() {
+                var obj = $(this);
                 !$('.J_dialog')[0] && $('body').append(s.box).attr('id',s.id);
                 $('.dialog_bg').css({
                     'height': $(document).height()
@@ -43,7 +43,23 @@
                 $('.J_dialog h4').text(s.title);
                 $('.J_dialog').attr('id',s.id);
                 $('.J_dialog').show();
-                $('.J_dialog .icon-close').click(s.close);
+                // 点击取消按钮
+                $('.J_dialog .icon-close, .J_dialog .jq-cancel, .J_dialog .jq-delete').click(s.close);
+                // 点击确认删除按钮
+                $('.J_dialog .jq-delete').click(function() {
+                    obj.closest('li').remove();
+                    if( !obj.attr('data-uri') ) return;              
+                    $.getJSON(obj.attr('data-uri'),function(result){
+                        if(result.status==1){
+                            $.smite.tip({content:result.msg,icon:'success'});
+                        }else if(result.status==254){
+                            $.dialog();
+                            // TGDialogS('userLogin');
+                        }else{
+                            $.smite.tip({content:result.msg,icon:'error'});
+                        }
+                    });
+                });
                 return $('.J_dialog');
             }
         });
@@ -125,9 +141,10 @@
             this.card();//名片
             this.like();//赞
             this.join();//加入
-            // this.comment();
+            this.comment();
             this.follow();//关注
-            // this.unfollow();
+            this.unfollow();
+            this.invite(); //邀请
             // this.message();
         },
         card:function(){
@@ -228,6 +245,50 @@
                 });
             });
         },
+        unfollow:function(){
+            var btn= $('.J_unfollow');
+            btn.on('click',function(){
+                if( !$(this).attr('data-uri') ) return;              
+                $.getJSON($(this).attr('data-uri'),function(result){
+                    if(result.status==1){
+                        $.smite.tip({content:result.msg,icon:'success',event:function(){
+                            window.location.reload();
+                        }});
+                    }else if(result.status==254){
+                        $.dialog();
+                    }else{
+                        $.smite.tip({content:result.msg,icon:'error'});
+                    }
+                });
+            });
+        },
+        invite: function() {
+            var s={
+                button:'.jq-invite',
+                wrap: '.jq-statusBtn'
+            };
+            $(s.wrap).on('click', s.button, function() {
+                var status = $(this).data('invite');
+                if(status == 0) {
+                    $(this).closest(s.wrap).empty().append('<span class="button_lg bg_gray_light">已拒绝</span>');
+                } else if(status == 1) {
+                    $(this).closest(s.wrap).empty().append('<span class="button_lg bg_gray_light">已接受</span>');
+                } else {
+                    return false;
+                }
+                if( !$(this).attr('data-uri') ) return;              
+                $.getJSON($(this).attr('data-uri'), function(result){
+                    if(result.status==1){
+                        $.smite.tip({content:result.msg,icon:'success'});
+                    }else if(result.status==254){
+                        $.dialog();
+                        // TGDialogS('userLogin');
+                    }else{
+                        $.smite.tip({content:result.msg,icon:'error'});
+                    }
+                });
+            });
+        },
         join:function(){
             var btn= $('.J_join');
             btn.on('click',function(){
@@ -244,6 +305,49 @@
                 });
             });
         },
+        comment:function(){ 
+            var s={
+                button:'.jq-confirmComment',
+                wrap: '.jq-commentWrap'
+            }; 
+            $(s.wrap).on('click', s.button, function() {
+                var obj=$(this),params={};
+                obj.parents('form').find(':input[name],textarea[name],select[name]').each(function(){
+                    var tagname= $(this).attr('name'),key=tagname;                  
+                      if(($(this).attr('type')=='radio'||$(this).attr('type')=='checkbox')&&$(this).attr('checked')==undefined){
+                          return;
+                      }                     
+                    if(tagname.substr(tagname.length-2,2)=='[]'){
+                        key=tagname.substr(0,tagname.length-2);                     
+                        if(!params[key])params[key]=[];
+                        params[key].push($(this).val());    
+                    }else{                  
+                        params[$(this).attr('name')]=$(this).val();
+                    }
+                });
+                if( params.content==undefined||params.content.length<10){
+                     $.smite.tip({content:'请输入至少10个字的评论',  icon:'error'}); 
+                   return;                     
+                }              
+                $.ajax({
+                    url:obj.parents('form').attr('action'),
+                    data:params,
+                    type:obj.parents('form').attr('method'),
+                    dataType:'json',
+                    success:function(res){
+                        if(res.status==1){
+                              $.smite.tip({content: res.msg,  icon:'success',event:function(){
+                                    window.location.reload();     
+                              }});
+                        }else if(res.status==254){     
+                              $.dialog();      
+                        }else{
+                             $.smite.tip({content:res.msg,  icon:'error'});
+                        }
+                    }
+                });
+            });  
+        }
     };
 
     
@@ -287,6 +391,33 @@
                 });
 
             });
+        },
+        loadContent: function(options) {
+            var defaults = {
+                newContent: '.jq-commentInput',
+                wrap: '.jq-commentWrap',
+                html: '.jq-commentHtml',
+                insertPosition: 'append'
+            };
+            var options = $.extend({}, defaults, options);
+            return this.each(function() {
+                var obj = $(this),
+                    o = options;
+                obj.on({
+                    click: function() {
+                        if(o.insertPosition == 'after') {
+                            $(o.wrap).find(o.newContent).remove();
+                            $(this).closest(o.wrap).after($(o.html).html());
+                        } else if(o.insertPosition == 'append') {
+                            $(o.wrap).find(o.newContent).remove();
+                            $(this).closest(o.wrap).append($(o.html).html());
+                        } else {
+                            return false;
+                        }
+                    }
+                });
+
+            });
         }
         
     });
@@ -318,6 +449,7 @@
 $(function() {
 
     // 头像卡片初始化
+    $.smite.common.init();
     $.smite.user.init();
 
     // 登录弹窗
@@ -325,18 +457,14 @@ $(function() {
         content: $('.dialogLogin'),
         title: '登录'
     });
-
-    // 顶部导航交互
-    $(document).scroll(function() {
-        var top_distance = $(document).scrollTop();
-        if(top_distance > 54) {
-            $('.jq-top-nav').addClass('fixed_top_nav');
-        } else {
-            $('.jq-top-nav').removeClass('fixed_top_nav');
-        }
+    // 删除弹窗
+    $.dialog({
+        content: $('.dialogDelete'),
+        title: '删除',
+        button: '.jq-dialogDelete',
+        width: '350px'
     });
-
-
+ 
     // 限制字符数
     $('.jq-elimit45').characterLimit({ limitLength: 45 });
     $('.jq-elimit35').characterLimit({ limitLength: 35 });
@@ -353,22 +481,24 @@ $(function() {
         tabMenu_childTag: 'a'
     });
 
+
     // 快速评论按钮
-    $('.jq-commentBtn').click(function() {
-        $(this).parent().next('.jq-comment').remove();
-        $(this).parent().after($('.jq-commentInput').html());
-        $(this).parent().next('.jq-comment').removeClass('none');
-    });
-    // 确认评论
-    $('.jq-commentWrap').on('click', '.jq-confirmComment', function() {
-        $(this).closest('.jq-comment').remove();
-        var commentText = $(this).closest('.jq-comment').find('textarea').val();
-    });
+    $('.jq-commentBtn').loadContent();
     // 取消评论
     $('.jq-commentWrap').on('click', '.jq-cancelComment', function() {
-        $(this).closest('.jq-comment').remove();
+        $(this).closest('.jq-commentInput').remove();
     });
 
+
+    // 顶部导航交互
+    $(document).scroll(function() {
+        var top_distance = $(document).scrollTop();
+        if(top_distance > 54) {
+            $('.jq-top-nav').addClass('fixed_top_nav');
+        } else {
+            $('.jq-top-nav').removeClass('fixed_top_nav');
+        }
+    });
 
     // 顶部导航菜单
     $('.jq-userMenu, .user_menu').hover(function() {
@@ -378,5 +508,6 @@ $(function() {
         $('.user_menu').addClass('none');
         $('.jq-userMenu').removeClass('user_attach_hover')
     });
+
 
 });

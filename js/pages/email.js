@@ -21,17 +21,13 @@ $(function() {
         }
     });
 
-    // 删除消息
+    // 消息列表显示删除按钮
     $('.jq-emailList').hover(function() {
-        $(this).find('.jq-delete').remove();
-        $(this).find('.jq-time').removeClass('mt22').before('<p class="gray_mid jq-delete"><i class="icon-close cursor"></i></p>');
+        $(this).find('.jq-dialogDelete').removeClass('none');
+        $(this).find('.jq-time').removeClass('mt22');
     }, function() {
         $(this).find('.jq-time').addClass('mt22');
-        $(this).find('.jq-delete').remove();
-    });
-
-    $('.jq-emailList').on('click', '.jq-delete', function() {
-        $(this).closest('.jq-emailList').remove();
+        $(this).find('.jq-dialogDelete').addClass('none');
     });
 
 });
