@@ -132,7 +132,7 @@
     $.smite.user={
         settings:{ 
             button: '.J_card',
-            layer_html: '<div id="J_card_layer" class="user_portrait_card"></div>',
+            layer_html: '<div id="J_card_layer"></div>',
             loading_html: '<p class="loading"></p>'           
         },
         init:function(options){
@@ -152,8 +152,8 @@
                 h = null,uid=null,
                 n = null;
 
-            $('.portrait_sex').on('mouseover', s.button, function() {   
-                $(s.button).closest('.user_portrait').css('z-index', '0');
+            $('.jq-portrait').on('mouseover', s.button, function() {   
+                $(s.button).closest('.jq-portrait').css('z-index', '0');
 
                 clearTimeout(h);
                 clearTimeout(n);
@@ -165,8 +165,8 @@
                     w = $(window).width();
                     l + 300 > w && (l = l - 300 + d, q = 300 - d / 2 - 8),
                 uid = $(this).data('uri');
-                
-                $(this).closest('.user_portrait').css('z-index', '2');
+
+                $(this).closest('.jq-portrait').css('z-index', '2');
                 $('#J_card_layer').css('z-index', '1');
 
                 if(!uid) return !1;  
@@ -174,12 +174,23 @@
                 
                 !$('#J_card_layer')[0] && $('body').append(s.layer_html);
                          
+                if(p.left < 344.5) {
+                    $('#J_card_layer').attr('class', 'user_portrait_rcard');
+                    $('#J_card_layer').css({
+                        position: 'absolute',
+                        top: (p.top - 122).toString() + "px",
+                        left: (p.left + 40).toString() + "px"
+                    });
 
-                $('#J_card_layer').css({
-                    position: 'absolute',
-                    top: (p.top - 122).toString() + "px",
-                    left: l + "px"
-                });
+                } else {
+                    $('#J_card_layer').attr('class', 'user_portrait_card');
+                    $('#J_card_layer').css({
+                        position: 'absolute',
+                        top: (p.top - 122).toString() + "px",
+                        left: l + "px"
+                    });
+                }
+                
 
                 h = setTimeout(function(){
                     clearTimeout(h);
@@ -207,7 +218,7 @@
                         });
                     }, 500);
             });
-            $('.portrait_sex').on('mouseout', s.button, function() {
+            $('.jq-portrait').on('mouseout', s.button, function() {
                 clearTimeout(h);
                 clearTimeout(n);
                 h = setTimeout(function() {
@@ -397,7 +408,8 @@
                 newContent: '.jq-commentInput',
                 wrap: '.jq-commentWrap',
                 html: '.jq-commentHtml',
-                insertPosition: 'append'
+                insertPosition: 'append',
+                appoint: '.jq-commentAppoint'
             };
             var options = $.extend({}, defaults, options);
             return this.each(function() {
@@ -405,18 +417,18 @@
                     o = options;
                 obj.on({
                     click: function() {
-                        if(o.insertPosition == 'after') {
-                            $(o.wrap).find(o.newContent).remove();
+                        $(o.wrap).find(o.newContent).remove();
+                        if(o.insertPosition == 'after') {    
                             $(this).closest(o.wrap).after($(o.html).html());
                         } else if(o.insertPosition == 'append') {
-                            $(o.wrap).find(o.newContent).remove();
                             $(this).closest(o.wrap).append($(o.html).html());
+                        } else if(o.insertPosition == 'appointAppend') {
+                            $(this).closest(o.wrap).find(o.appoint).append($(o.html).html());
                         } else {
                             return false;
                         }
                     }
                 });
-
             });
         }
         

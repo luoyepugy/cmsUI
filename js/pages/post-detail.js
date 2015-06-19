@@ -23,4 +23,9 @@ $(function() {
         $(this).find('.jq-reportBtn').addClass('none');
     });
 
+    // 回复锚点跳转
+    $('.jq-commentAnchor').loadContent({
+        insertPosition: 'appointAppend'
+    });
+
 });

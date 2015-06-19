@@ -28,6 +28,10 @@
             },
             error:function(){
                 $.smite.tip({content:'请求遇到异常，请刷新页面重试！', icon:'error'});
+            },
+            complete: function() {
+                $(this).closest(o.wrap).children().toggleClass('none');
+                $(this).closest(o.wrap).find(o._originText).text(o._newText);
             }
          },
         init: function(options) {
@@ -59,8 +63,6 @@
                     }else if(o._newText == '') {
                         $.smite.tip({content:'输入框不能为空！',icon:'error'});
                     } else {
-                        $(this).closest(o.wrap).children().toggleClass('none');
-                        $(this).closest(o.wrap).find(o._originText).text(o._newText);
                         var params={};
                         obj.closest(o.wrap).find('input[name],textarea[name]').each(function(){
                             var tagname= $(this).attr('name');
@@ -117,8 +119,6 @@
                     }else if(o._newText == '') {
                         $.smite.tip({content:'输入框不能为空！',icon:'error'});
                     } else {
-                        $(this).closest(o.wrap).children().toggleClass('none');
-                        $(this).closest(o.wrap).find(s.editBtn).text(o._newText);
                         var params={};
                         obj.closest(o.wrap).find('input[name],textarea[name]').each(function(){
                             var tagname= $(this).attr('name');
