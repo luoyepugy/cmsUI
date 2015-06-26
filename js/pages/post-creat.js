@@ -4,12 +4,16 @@ $(function() {
     // 实例化编辑器
     var ue = UE.getEditor('content', {
         toolbars: [
-            ['simpleupload', 'insertimage','insertvideo']
+            ['simpleupload','insertvideo']
         ],
+        textarea: 'content',
         initialFrameHeight: '300',
         pasteplain: true,
         retainOnlyLabelPasted: true,
-        maximumWords: '500',
+        allHtmlEnabled: false,
+        maximumWords: '1000',
+        enableContextMenu: false,
+        elementPathEnabled: false,
         autotypese: {
             mergeEmptyline: true, //合并空行
             removeClass: true, //去掉冗余的class
@@ -30,12 +34,12 @@ $(function() {
         }
     });
     // ue.ready(function() {
-        var html = ue.getContent();
-        //获取html内容，返回: <p>hello</p>
-        console.log(html);
-        //获取纯文本内容，返回: hello
-        // var txt = ue.getContentTxt();
-        $('textarea[name="content"]').attr('value', html);
+    //     var html = ue.getContent();
+    //     //获取html内容，返回: <p>hello</p>
+    //     // console.log(html);
+    //     //获取纯文本内容，返回: hello
+    //     // var txt = ue.getContentTxt();
+    //     // $('textarea[name="content"]').attr('value', html);
     // });
 
 
@@ -55,15 +59,13 @@ $(function() {
         return len;
     }
 
-
-
-
+    // 汉字长度限制
     $.validator.addMethod('lengthLimit', function(value, element) {
         return getByteLen(value) < 80 ? true : false;
-    }, '昵称必须少于8个字!');
+    }, '昵称必须少于40个字!');
 
 
-	// 基础设置表单验证
+	// 发帖表单验证
 	$('.jq-postForm').validate({
         ignore: '',
 		rules: {
@@ -73,6 +75,12 @@ $(function() {
             },
             "content": {
                 required: true
+            },
+            "remind": {
+                required: true
+            },
+            "invite": {
+                required: true
             }
         },
         messages: {
@@ -80,41 +88,64 @@ $(function() {
                 required: "请输入标题！",
                 lengthLimit: "昵称必须少于40个字！"
             },
+            "remind": {
+                required: "提醒谁看为必填项！"
+            },
+            "invite": {
+                required: "邀请谁回答为必填项！"
+            },
             "content": {
                 required: "请输入内容！"
             }
         },
         errorPlacement: function(error, element) { 
-            element.parent().find('.jq-tip').remove();
-            error.appendTo(element.parent().append()); 
+            element.parent().find('.jq-tip').remove();   
+            error.appendTo(element.closest('div.p').append()); 
         },
         onkeyup: false,
         onfocusout: false,
         onsubmit: true,
         errorElement: "em",
-        submitHandler: function(form) { 
-            form.submit();       
+        submitHandler: function(form) {
+            var obj=$('.jq-submitBtn');
+            var params={};
+            obj.parents('form').find('input[name],textarea[name],select[name]').each(function(){
+                var tagname= $(this).attr('name');
+                var key=tagname;                    
+                  if(($(this).attr('type')=='radio'||$(this).attr('type')=='checkbox')&&$(this).attr('checked')==undefined){
+                      return;
+                  }                     
+                if(tagname.substr(tagname.length-2,2)=='[]'){
+                    key=tagname.substr(0,tagname.length-2);                     
+                    if(!params[key])params[key]=[];
+                    params[key].push($(this).val());    
+                }else{                  
+                    params[$(this).attr('name')]=$(this).val();
+                }
+            });
+            
+            $.ajax({
+                url:obj.parents('form').attr('action'),
+                data:params,
+                type:obj.parents('form').attr('method'),
+                dataType: 'json',
+                success: function(data,sender){
+                    if(data.status==1){
+                        $.smite.tip({content:data.msg,icon:'success',event:function(){
+                            if(data.url) window.location=data.url;
+                            window.location.reload();   
+                        }});
+                    }else if(data.status==254){
+                        $.dialogLogin({show: true});        
+                    }else{
+                        $.smite.tip({content:data.msg,  icon:'error'});
+                    }
+                },
+                error:function(){
+                    $.smite.tip({content:'请求遇到异常，请刷新页面重试！', icon:'error'});
+                }
+            });   
         } 
 	});
-
-    // $('.jq-submit').click(function() {
-    //     var title = $('input[name="title"]').val();
-    //     var content = ue.getContent();
-    //     var remind = $('input[name="remind"]').val();
-    //     var invite = $('input[name="invite"]').val();
-        
-    //     $.ajax({
-    //         url:obj.parents('form').attr('action'),
-    //         data:params,
-    //         type:obj.parents('form').attr('method'),
-    //         dataType:s.type,
-    //         success: function() {
-    //             form.submit();
-    //         },
-    //         error: function() {
-
-    //         }
-    //     }); 
-    // });
 
 });

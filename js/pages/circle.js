@@ -42,4 +42,11 @@ $(function() {
         width: '450px'
     });
 
+    // 添加友情圈子弹窗验证
+    // $('.jq-submitDialog').click(function() {
+    // 	if($('#circleName').val() == '') {
+    // 		$.smite.tip({content:'圈子名不可空', icon:'error'});
+    // 	}
+    // });
+
 });

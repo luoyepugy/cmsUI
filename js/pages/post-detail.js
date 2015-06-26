@@ -25,7 +25,41 @@ $(function() {
 
     // 回复锚点跳转
     $('.jq-commentAnchor').loadContent({
-        insertPosition: 'appointAppend'
+        insertPosition: 'appoint'
     });
+
+    // 举报弹窗表单初始化
+    // $.smite.dialogForm.init({button:'.jq-reportSubmit',valid:function(data){
+    //     if(data.username==undefined||data.username==''){
+    //         $.smite.tip({content:'用户名不可空', icon:'error'});
+    //         return false;
+    //     }
+    //     if(data.password==undefined||data.password==''){
+    //         $.smite.tip({content:'密码不可空', icon:'error'});
+    //         return false;
+    //     }
+    //     if(data.vcode==undefined||data.vcode==''){
+    //         $.smite.tip({content:'验证码不可空', icon:'error'});
+    //         return false;
+    //     }
+    //     return true;
+    // }});
+
+    // 举报弹窗表单初始化
+    // $.smite.dialogForm.init({button:'.jq-reportSubmit',valid:function(data){
+    //     if(data.username==undefined||data.username==''){
+    //         $.smite.tip({content:'用户名不可空', icon:'error'});
+    //         return false;
+    //     }
+    //     if(data.password==undefined||data.password==''){
+    //         $.smite.tip({content:'密码不可空', icon:'error'});
+    //         return false;
+    //     }
+    //     if(data.vcode==undefined||data.vcode==''){
+    //         $.smite.tip({content:'验证码不可空', icon:'error'});
+    //         return false;
+    //     }
+    //     return true;
+    // }});
 
 });

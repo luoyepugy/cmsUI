@@ -14,14 +14,63 @@
         return this;
     };
 
-
-    $.dialog=function(options){
+    $.dialogLogin = function(options) {
         var s={
-            button: '.jq-dialogLoginBtn',
+            show: false,
             id:'',
             content: $('.dialogLogin'),
             title: '登录',
             width: '650px',
+            box:'<div class="dialog J_dialog" ><div class="dialog_title"><h4></h4><span class="icon-close"></span></div><div class="dialog_content"></div>' +
+                '</div><div class="dialog_bg"></div>',
+            close:function(){
+                $(this).parents('.J_dialog').hide();
+                $('.dialog_bg').css('height', '0');
+            },
+        };
+        options && $.extend(s, options);
+        !$('.J_dialog')[0] && $('body').append(s.box).attr('id',s.id);
+        
+        if(s.show == true) {
+            s.content.removeClass('none');
+        } else {
+            return;
+        }
+        $('.dialog_bg').css({
+            'height': $(document).height()
+        });
+        $('.J_dialog').css('width', s.width);
+        $('.J_dialog .dialog_content').html(s.content);
+        $('.J_dialog h4').text(s.title);
+        $('.J_dialog').attr('id',s.id);
+        $('.J_dialog').show();
+        // 点击取消按钮
+        $('.J_dialog .icon-close, .J_dialog .jq-cancel, .J_dialog .jq-delete').click(s.close);
+        // 点击确认删除按钮
+        $('.J_dialog .jq-delete').click(function() {
+            obj.closest('li').remove();
+            if( !obj.attr('data-uri') ) return;              
+            $.getJSON(obj.attr('data-uri'),function(result){
+                if(result.status==1){
+                    $.smite.tip({content:result.msg,icon:'success'});
+                }else if(result.status==254){
+                    $.dialogLogin({show: true});
+                }else{
+                    $.smite.tip({content:result.msg,icon:'error'});
+                }
+            });
+        });
+        return $('.J_dialog');
+    };
+
+
+    $.dialog=function(options){
+        var s={
+            button: '.jq-dialogDelete',
+            id:'',
+            content:$('.dialogDelete'),
+            title: '删除',
+            width: '350px',
             box:'<div class="dialog J_dialog" ><div class="dialog_title"><h4></h4><span class="icon-close"></span></div><div class="dialog_content"></div>' +
                 '</div><div class="dialog_bg"></div>',
             close:function(){
@@ -53,8 +102,7 @@
                         if(result.status==1){
                             $.smite.tip({content:result.msg,icon:'success'});
                         }else if(result.status==254){
-                            $.dialog();
-                            // TGDialogS('userLogin');
+                            $.dialogLogin({show: true});
                         }else{
                             $.smite.tip({content:result.msg,icon:'error'});
                         }
@@ -108,7 +156,7 @@
                         window.location.reload();   
                     }});
                 }else if(data.status==254){
-                    $.dialog();
+                    $.dialogLogin({show: true});
                     // TGDialogS('userLogin');         
                 }else{
                     $.smite.tip({content:data.msg,  icon:'error'});
@@ -128,6 +176,71 @@
         }
     };
 
+    $.smite.dialogForm={
+        settings:{
+            button:'.jq-dialogSubmit',
+            type:'json',
+            valid:function(data){
+                return true;
+            },
+            success:function(data){
+                if(data.status==1){                 
+                    $.smite.tip({content:data.msg, icon:'success',event:function(){                     
+                        if(data.url!=undefined&&data.url!=null){
+                            window.location=data.url;
+                        }else{
+                            window.location.reload();
+                        }
+                    }});
+                }else if(data.status==254){
+                    $.dialogLogin({show: true});
+                }else{ 
+                    $.smite.tip({content:data.msg, icon:'error'});
+                }
+            },
+            error:function(){
+                $.smite.tip({content:'请求遇到异常，请刷新页面重试！', icon:'error'});
+            }
+        },
+        init:function(options){ 
+            var s=this.settings;
+            if(options){ s=$.extend({},s, options);}
+            this.submitForm(s); 
+        },
+        submitForm :function(s){ 
+            $(s.button).click(function(){
+                var obj=$(this);
+                var params={};
+                obj.parents('form').find('input[name],textarea[name],select[name]').each(function(){
+                    var tagname= $(this).attr('name');
+                    var key=tagname;                    
+                    var type = $(this).attr('type');                 
+                    if((type=='radio'||type=='checkbox')&&$(this).prop('checked')==false){
+                        return;
+                    } else if(tagname=='') {
+                        return;
+                    } else if(tagname.substr(tagname.length-2,2)=='[]'){
+                        key=tagname.substr(0,tagname.length-2);                     
+                        if(!params[key])params[key]=[];
+                        params[key].push($(this).val());
+                    } else{                  
+                        params[key]=$(this).val();
+                    }
+                });
+                
+                if(!s.valid(params)) return;
+                $.ajax({
+                    url:obj.parents('form').attr('action'),
+                    data:params,
+                    type:obj.parents('form').attr('method'),
+                    dataType:s.type,
+                    success:s.success,
+                    error:s.error,
+                }); 
+            });
+            return ;
+        }
+    };
 
     $.smite.user={
         settings:{ 
@@ -142,8 +255,8 @@
             this.like();//赞
             this.join();//加入
             this.comment();
-            this.follow();//关注
-            this.unfollow();
+            // this.follow();//关注
+            // this.unfollow();
             this.invite(); //邀请
             // this.message();
         },
@@ -233,45 +346,12 @@
                        $(this).find('.good_num').text(  (isNaN(num)?0:num) +1);
                       num.length > 3 ? Number(num/1000).toFixed(1) + 'K' : num  ;
                 }else if(data.status==254){
-                    $.dialog();
+                    $.dialogLogin({show: true});
                     // TGDialogS('userLogin');
                 }else{
                     $.smite.tip({content:data.msg,  icon:'error'});
                 }
             }});
-        },
-        follow:function(){
-            var btn= $('.J_follow');
-            btn.on('click',function(){
-                if( !$(this).attr('data-uri') ) return;              
-                $.getJSON($(this).attr('data-uri'),function(result){
-                    if(result.status==1){
-                        $.smite.tip({content:result.msg,icon:'success'});
-                    }else if(result.status==254){
-                        $.dialog();
-                        // TGDialogS('userLogin');
-                    }else{
-                        $.smite.tip({content:result.msg,icon:'error'});
-                    }
-                });
-            });
-        },
-        unfollow:function(){
-            var btn= $('.J_unfollow');
-            btn.on('click',function(){
-                if( !$(this).attr('data-uri') ) return;              
-                $.getJSON($(this).attr('data-uri'),function(result){
-                    if(result.status==1){
-                        $.smite.tip({content:result.msg,icon:'success',event:function(){
-                            window.location.reload();
-                        }});
-                    }else if(result.status==254){
-                        $.dialog();
-                    }else{
-                        $.smite.tip({content:result.msg,icon:'error'});
-                    }
-                });
-            });
         },
         invite: function() {
             var s={
@@ -292,7 +372,7 @@
                     if(result.status==1){
                         $.smite.tip({content:result.msg,icon:'success'});
                     }else if(result.status==254){
-                        $.dialog();
+                        $.dialogLogin({show: true});
                         // TGDialogS('userLogin');
                     }else{
                         $.smite.tip({content:result.msg,icon:'error'});
@@ -308,7 +388,7 @@
                     if(result.status==1){
                         $.smite.tip({content:result.msg,icon:'success'});
                     }else if(result.status==254){
-                        $.dialog();
+                        $.dialogLogin({show: true});
                         // TGDialogS('userLogin');
                     }else{
                         $.smite.tip({content:result.msg,icon:'error'});
@@ -351,7 +431,7 @@
                                     window.location.reload();     
                               }});
                         }else if(res.status==254){     
-                              $.dialog();      
+                              $.dialogLogin({show: true});      
                         }else{
                              $.smite.tip({content:res.msg,  icon:'error'});
                         }
@@ -361,6 +441,143 @@
         }
     };
 
+
+    $.smite.form={
+        settings:{
+            vcode:'.loginImgCode',
+            button:'form:submit',
+            type:'json',
+            valid:function(data){
+                return true;
+            },
+            success:function(data){
+                if(data.status==1){                 
+                    if(data.re_email!=undefined&&data.re_email!=null){
+                        if(data.re_email==undefined||data.re_email==null) return;
+                         TGDialogS("emailCheck");
+                         $('#mail_msg').html(data.msg);
+                        var btnemail=$('#re_email');
+                        btnemail.attr('data-uri',data.re_email);
+                        btnemail.unbind('click').click(function(){
+                            $.getJSON( $(this).attr('data-uri'),function(data){
+                                    if(data.status==1){
+                                         $.smite.tip({content:'邮件发送成功，请注意查收!', icon:'success'});
+                                    }else{
+                                        $.smite.tip({content:'邮件发送失败，请核实您的邮箱是否正确，或换其它邮箱重新注册！', icon:'error'});
+                                    }
+                            });
+                        });
+                    }else{
+                        $.smite.tip({content:data.msg, icon:'success',event:function(){                     
+                            if(data.url!=undefined&&data.url!=null){
+                                window.location=data.url;
+                            }else{
+                                window.location.reload();
+                            }
+                        }});
+                    }
+                }else if(data.status==254){
+                    TGDialogS('userLogin');
+                }else{ 
+                      $.smite.tip({content:data.msg, icon:'error'});
+                }
+            },
+            error:function(){
+                $.smite.tip({content:'请求遇到异常，请刷新页面重试！', icon:'error'});
+            }
+        },
+        init:function(options){ 
+            var s=this.settings;
+            if(options){ s=$.extend({},s, options);}
+            this.verify(s);
+            this.login(s);
+            this.register(s);  
+        },
+        verify:function(s){         
+            $(s.vcode).unbind('click').click(function(){
+                $(this).attr('src', $(this).attr('src')+'&t='+ (new Date()).valueOf()  );
+            });
+        },
+        login:function(s){ 
+            $(s.button).click(function(){
+                var obj=$(this);
+                var params={};
+                obj.parents('form').find('input[name],textarea[name],select[name]').each(function(){
+                    var tagname= $(this).attr('name');
+                    var key=tagname;                    
+                    var type = $(this).attr('type');                 
+                    if((type=='radio'||type=='checkbox')&&$(this).prop('checked')==false){
+                        return;
+                    } else if(tagname=='') {
+                        return;
+                    } else if(tagname.substr(tagname.length-2,2)=='[]'){
+                        key=tagname.substr(0,tagname.length-2);                     
+                        if(!params[key])params[key]=[];
+                        params[key].push($(this).val());
+                    } else{                  
+                        params[key]=$(this).val();
+                    }
+                });
+                
+                 if(!s.valid(params)) return;
+                $.ajax({
+                    url:obj.parents('form').attr('action'),
+                    data:params,
+                    type:obj.parents('form').attr('method'),
+                    dataType:s.type,
+                    success:s.success,
+                    error:s.error,
+                }); 
+            });
+            return ;
+        },
+        register:function(s){ 
+            $('.newUser .loginBtn').click(function(){
+                var obj=$(this);
+                var params={};
+                obj.parents('form').find('input[name],textarea[name],select[name]').each(function(){
+                    var tagname= $(this).attr('name');
+                    var key=tagname;                    
+                      if(($(this).attr('type')=='radio'||$(this).attr('type')=='checkbox')&&$(this).attr('checked')==undefined){
+                          return;
+                      }                     
+                    if(tagname.substr(tagname.length-2,2)=='[]'){
+                        key=tagname.substr(0,tagname.length-2);                     
+                        if(!params[key])params[key]=[];
+                        params[key].push($(this).val());    
+                    }else{                  
+                        params[$(this).attr('name')]=$(this).val();
+                    }
+                });
+                 
+                    params['agreement']=1;
+                    params['repassword']=params['password'];
+                    if( params.username==undefined||params.username.length<4){
+                       $.smite.tip({content:'请输入至少4位用户名', icon:'error'});
+                       return;                     
+                    }
+                    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+                    if(!reg.test(params.email)){
+                     $.smite.tip({content:'请输入正确的邮箱地址', icon:'error'}); return;     
+                    }
+                    if( params.password==undefined||params.password.length<4){
+                         $.smite.tip({content:'请输入至少4位密码', icon:'error'}); return;                     
+                    }
+                    if( params.vcode==undefined||params.vcode.length!=6){   
+                        $.smite.tip({content:'请输入6位验证码', icon:'error'}); return;                       
+                    }
+                $.ajax({
+                    url:obj.parents('form').attr('action'),
+                    data:params,
+                    type:obj.parents('form').attr('method'),
+                    dataType:s.type,
+                    success:s.success,
+                    error:s.error,
+                }); 
+            });
+            return ;
+        }
+    };
     
     $.fn.extend({
         // 字符长度限制
@@ -422,7 +639,7 @@
                             $(this).closest(o.wrap).after($(o.html).html());
                         } else if(o.insertPosition == 'append') {
                             $(this).closest(o.wrap).append($(o.html).html());
-                        } else if(o.insertPosition == 'appointAppend') {
+                        } else if(o.insertPosition == 'appoint') {
                             $(this).closest(o.wrap).find(o.appoint).append($(o.html).html());
                         } else {
                             return false;
@@ -460,22 +677,56 @@
 
 $(function() {
 
-    // 头像卡片初始化
+    // 通用ajax初始化
     $.smite.common.init();
+    // 头像卡片初始化
     $.smite.user.init();
+    // 弹窗表单初始化，默认是举报弹窗
+    $.smite.dialogForm.init();
 
-    // 登录弹窗
-    $.dialog({
-        content: $('.dialogLogin'),
-        title: '登录'
-    });
-    // 删除弹窗
-    $.dialog({
-        content: $('.dialogDelete'),
-        title: '删除',
-        button: '.jq-dialogDelete',
-        width: '350px'
-    });
+    // 空间高级设置页面
+    $.smite.dialogForm.init({button: '.J_submit'});
+    // 添加友情圈子弹窗
+    $.smite.dialogForm.init({button: '.jq-addCircleSubmit', valid: function(data) {
+        if(data.circleName==undefined||data.circleName=='') {
+            $.smite.tip({content:'圈子名不可为空', icon:'error'});
+            return false;
+        }
+        return true;
+    }});
+
+    // 登录表单初始化
+    $.smite.form.init({button:'.jq-signinBtn',valid:function(data){
+        if(data.username==undefined||data.username==''){
+            $.smite.tip({content:'用户名不可空', icon:'error'});
+            return false;
+        }
+        if(data.password==undefined||data.password==''){
+            $.smite.tip({content:'密码不可空', icon:'error'});
+            return false;
+        }
+        if(data.vcode==undefined||data.vcode==''){
+            $.smite.tip({content:'验证码不可空', icon:'error'});
+            return false;
+        }
+        return true;
+    }});
+
+    // 换一批初始化
+    $.smite.common.init({button:'.jq-change',success:function(data){
+        if(data.status==1){
+            $('.portrait_sex').empty().html( data.data );
+        }else if(data.status==254){
+            $.dialogLogin({show: true});
+        }else{
+            $.smite.tip({content:data.msg,icon:'error'});
+        }
+    }});
+
+    // 关注
+    $.smite.common.init({button: '.J_follow'});
+    // 取消关注
+    $.smite.common.init({button: '.J_unfollow'});
  
     // 限制字符数
     $('.jq-elimit45').characterLimit({ limitLength: 45 });

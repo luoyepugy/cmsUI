@@ -21,7 +21,7 @@
                         window.location.reload();   
                     }});
                 }else if(data.status==254){
-                    $.dialog();     
+                    $.dialogLogin({show: true});     
                 }else{
                     $.smite.tip({content:data.msg,  icon:'error'});
                 }
