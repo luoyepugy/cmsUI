@@ -4,9 +4,17 @@
 // 空间个人卡片
 .space_card
   +display-inline(200px, 620px)
-  padding: 20px
+  padding: 20px 20px 120px 20px
   background: $main_bg
   margin-bottom: 30px
+  position: relative
+.icon-tags
+  +size(150px, 60px)
+  +position(absolute, bottom, 30px, left, -6px)
+.tags_text
+  color: white
+  +position(absolute, left, 75px, bottom, 25px)
+
 
 // 帖子列表
 .post_list

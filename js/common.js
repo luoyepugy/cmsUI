@@ -66,9 +66,9 @@
 
     $.dialog=function(options){
         var s={
-            button: '.jq-dialogDelete',
+            button:'.jq-dialogDelete',
             id:'',
-            content:$('.dialogDelete'),
+            content: $('.dialogDelete'),
             title: '删除',
             width: '350px',
             box:'<div class="dialog J_dialog" ><div class="dialog_title"><h4></h4><span class="icon-close"></span></div><div class="dialog_content"></div>' +
@@ -76,7 +76,7 @@
             close:function(){
                 $(this).parents('.J_dialog').hide();
                 $('.dialog_bg').css('height', '0');
-            },
+            }
         };
         options && $.extend(s, options);
         $(s.button).on({
@@ -97,7 +97,7 @@
                 // 点击确认删除按钮
                 $('.J_dialog .jq-delete').click(function() {
                     obj.closest('li').remove();
-                    if( !obj.attr('data-uri') ) return;              
+                    if( !obj.attr('data-uri') ) return;             
                     $.getJSON(obj.attr('data-uri'),function(result){
                         if(result.status==1){
                             $.smite.tip({content:result.msg,icon:'success'});
@@ -625,7 +625,7 @@
                 newContent: '.jq-commentInput',
                 wrap: '.jq-commentWrap',
                 html: '.jq-commentHtml',
-                insertPosition: 'append',
+                insertPosition: 'appoint',
                 appoint: '.jq-commentAppoint'
             };
             var options = $.extend({}, defaults, options);
@@ -635,6 +635,9 @@
                 obj.on({
                     click: function() {
                         $(o.wrap).find(o.newContent).remove();
+                        $(o.newContent).attr('data-id', $(this).data('id'));
+                        $(o.newContent).attr('data-pid', $(this).data('pid'));
+                        $(this).data('pid');
                         if(o.insertPosition == 'after') {    
                             $(this).closest(o.wrap).after($(o.html).html());
                         } else if(o.insertPosition == 'append') {
@@ -683,6 +686,12 @@ $(function() {
     $.smite.user.init();
     // 弹窗表单初始化，默认是举报弹窗
     $.smite.dialogForm.init();
+
+    // 删除弹窗
+    $.dialog({
+        button: '.jq-dialogDelete',
+        content: $('.dialogDelete')
+    });
 
     // 空间高级设置页面
     $.smite.dialogForm.init({button: '.J_submit'});

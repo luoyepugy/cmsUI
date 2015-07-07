@@ -2,9 +2,15 @@
 @import ../mixin
 
 // 上传头像
-.portrait_upload
+.upload_input
+  display: block
+  input
+    +size-icon(120)
+.upload_img
+  cursor: pointer
   img
     border: 1px solid #aaa
+
 
 // 消息设置选项
 .setting_options
